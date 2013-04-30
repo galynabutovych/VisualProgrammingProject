@@ -1,10 +1,17 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace Snake
 {
+    public enum CellTypes
+    {
+        EmptyCell = 0,
+        Head,
+        Body
+    }
+
     static class Program
     {
         /// <summary>
