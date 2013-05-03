@@ -5,8 +5,27 @@ using System.Drawing.Drawing2D;
 
 namespace Snake
 {
+    enum Direction
+    {
+        Left,
+        Up,
+        Right,
+        Down
+    }
     public partial class Form1 : Form
     {
+        //TODO: remove snake painting to another class
+
+        /// <summary>
+        /// Game field.
+        /// </summary>
+        GameField gameField = null;
+
+        /// <summary>
+        /// Settings control.
+        /// </summary>
+        Settings settings = null;
+        
         int sideWidth = 100;
 
         int X = 100;
@@ -19,11 +38,20 @@ namespace Snake
         public Form1()
         {
             InitializeComponent();
+
+            gameField = new GameField(50, 50, 20);
+            gameField.Width = (this.ClientRectangle.Width * 4) / 5;
+            gameField.Height = this.ClientRectangle.Height;
+            gameField.Location = new Point(0, 0);
+            this.Controls.Add(gameField);
+
+            settings = new Settings();
+            this.Controls.Add(settings);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            timer1.Start();
+            //timer1.Start();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -106,14 +134,6 @@ namespace Snake
         {
             Y = Y + step;
             Invalidate();
-        }
-
-        enum Direction
-        {
-            Left,
-            Up,
-            Right,
-            Down
         }
 
         private void timer1_Tick(object sender, EventArgs e)
