@@ -27,6 +27,8 @@ namespace Snake
             gameField.Width = 20*20;
             gameField.Height = 10 * 20;
             
+            //this.DoubleBuffered = true;
+           
             
             gameField.Location = new Point(0, 0);
             this.Controls.Add(gameField);

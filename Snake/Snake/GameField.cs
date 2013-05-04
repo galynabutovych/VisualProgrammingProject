@@ -34,10 +34,11 @@ namespace Snake
         public GameField(int rows, int colums, int cellWidth)
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
 
             rowsCount = rows;
             columsCount = colums;
-            squareWidth = cellWidth;
+            squareWidth = cellWidth;            
 
             snake = new Snake(rowsCount, columsCount, 0, 0);
             snake.growRight();
@@ -152,9 +153,7 @@ namespace Snake
         {
             Graphics g = e.Graphics;
             paintSnake(g);
-        }
-
-        
+        }        
 
         private void paintSnake(Graphics g)
         {
