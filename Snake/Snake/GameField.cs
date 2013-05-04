@@ -40,6 +40,9 @@ namespace Snake
             squareWidth = cellWidth;
 
             snake = new Snake(rowsCount, columsCount, 0, 0);
+            snake.growRight();
+            snake.growRight();
+            snake.growRight();
         }
 
         /// <summary>
@@ -69,7 +72,21 @@ namespace Snake
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            snake.move();
+            switch (snake.direction)
+            {
+                case Direction.Left:
+                    snake.moveLeft();
+                    break;
+                case Direction.Up:
+                    snake.moveUp();
+                    break;
+                case Direction.Right:
+                    snake.moveRight();
+                    break;
+                case Direction.Down:
+                    snake.moveDown();
+                    break;
+            }
             Invalidate();
         }
 
@@ -111,7 +128,6 @@ namespace Snake
 
         private void GameField_Load(object sender, EventArgs e)
         {
-            //this.Parent.KeyDown += new KeyEventHandler(GameField_KeyDown);
             timer.Start();
         }
         protected override bool IsInputKey(Keys keyData)
