@@ -5,14 +5,6 @@ using System.Drawing.Drawing2D;
 
 namespace Snake
 {
-    // TODO: move this to another file
-    enum Direction
-    {
-        Left,
-        Up,
-        Right,
-        Down
-    }
     public partial class Form1 : Form
     {
         /// <summary>
