@@ -20,12 +20,12 @@ namespace Snake
         public Form1()
         {
             InitializeComponent();
-            gameField = new GameField(10, 20, 20);
+            gameField = new GameField(20, 20, 20);
             // TODO: set correct geometry
             //gameField.Width = this.ClientRectangle.Width;
             //gameField.Height = this.ClientRectangle.Height;
             gameField.Width = 20*20;
-            gameField.Height = 10 * 20;
+            gameField.Height = 20 * 20;
             
             //this.DoubleBuffered = true;
            
