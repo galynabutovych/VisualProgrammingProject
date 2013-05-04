@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace Snake
 {
@@ -17,12 +18,11 @@ namespace Snake
         //TODO: resize
         
         /// Members:
-        private int intervalWidth = 20; /// elementary rectangular cell side width (step width too)
+        private int squareWidth = 20; /// elementary rectangular cell side width (step width too)
         private int rowsCount; /// rows count
         private int columsCount; /// colums count
         private int X = 0; /// snake (head) X position.
         private int Y = 0; /// snake (head) Y position.
-        Direction direction = Direction.Right; /// in what direction snake is moving.
         Snake snake = null;
 
         /// <summary>
@@ -37,9 +37,9 @@ namespace Snake
 
             rowsCount = rows;
             columsCount = colums;
-            intervalWidth = cellWidth;
+            squareWidth = cellWidth;
 
-            snake = new Snake();
+            snake = new Snake(rowsCount, columsCount, 0, 0);
         }
 
         /// <summary>
@@ -69,21 +69,8 @@ namespace Snake
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            switch (direction)
-            {
-                case Direction.Left:
-                    snake.moveLeft();
-                    break;
-                case Direction.Up:
-                    snake.moveUp();
-                    break;
-                case Direction.Right:
-                    snake.moveRight();
-                    break;
-                case Direction.Down:
-                    snake.moveDown();
-                    break;
-            }
+            snake.move();
+            Invalidate();
         }
 
         private void GameField_KeyDown(object sender, KeyEventArgs e)
@@ -124,12 +111,51 @@ namespace Snake
 
         private void GameField_Load(object sender, EventArgs e)
         {
+            //this.Parent.KeyDown += new KeyEventHandler(GameField_KeyDown);
             timer.Start();
+        }
+        protected override bool IsInputKey(Keys keyData)
+        {
+            //return true if the specified key is a regular input key; otherwise return false. 
+            if (keyData == Keys.Left ||
+                keyData == Keys.Up ||
+                keyData == Keys.Right ||
+                keyData == Keys.Down ||
+                keyData == Keys.Space
+                )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void GameField_Paint(object sender, PaintEventArgs e)
         {
+            Graphics g = e.Graphics;
+            paintSnake(g);
+        }
 
+        
+
+        private void paintSnake(Graphics g)
+        {
+            List<Point> snakeBody = snake.getBody();
+            foreach (Point currentLink in snakeBody)
+            {
+                Point lefyTop = leftTopRectPosition(currentLink);
+                Rectangle rect = new Rectangle(lefyTop.X, lefyTop.Y, squareWidth, squareWidth);
+                LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Red, Color.Yellow, LinearGradientMode.BackwardDiagonal);
+                g.FillRectangle(lBrush, rect);
+            }
+        }
+
+        private Point leftTopRectPosition(Point point)
+        {
+            Point mappedPoint = new Point(point.X * squareWidth, point.Y * squareWidth);
+            return mappedPoint;
         }
 
     }
