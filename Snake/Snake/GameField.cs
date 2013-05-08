@@ -62,6 +62,7 @@ namespace Snake
         public void resume()
         {
             timer.Start();
+            Invalidate();
         }
 
         /// <summary>
