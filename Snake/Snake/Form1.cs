@@ -46,6 +46,30 @@ namespace Snake
         {
         }
 
+
+        // exit
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gameField.pause();
+
+           DialogResult result = MessageBox.Show("Are you sure you want to exit?","Exit", MessageBoxButtons.YesNo);
+
+           if (result == DialogResult.Yes)
+           {
+
+               DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
+               if (resultsave == DialogResult.Yes)
+               {
+                   // save game
+               }
+               else Close();
+           }
+           else gameField.resume();
+            
+                       
+        }
+
     
        
     }
