@@ -43,7 +43,7 @@ namespace Snake
         {
         }
 
-
+       
         // exit
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -62,9 +62,20 @@ namespace Snake
                }
                else Close();
            }
-           else gameField.resume();
-            
+                      
                        
+        }
+
+
+        //about
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gameField.pause();
+            About about = new About();
+            about.Show();
+            
+      
         }
 
     

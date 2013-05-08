@@ -51,7 +51,9 @@ namespace Snake
         /// </summary>
         public void pause()
         {
+            
             timer.Stop();
+            Invalidate();
         }
 
         /// <summary>
@@ -153,7 +155,32 @@ namespace Snake
         {
             Graphics g = e.Graphics;
             paintSnake(g);
-        }        
+            if (!timer.Enabled)
+            {
+                paintPause(g);
+            }
+        }
+
+
+        // Visual notification that game is paused  
+
+        private void paintPause(Graphics g)
+        {
+            StringFormat sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;        // horizontal alignment
+            sf.LineAlignment = StringAlignment.Center;    // vertical alignment
+
+            Rectangle rect = new Rectangle(Width / 4, Height / 4, Width / 2, Height / 2);
+            Color color = Color.FromArgb(100, Color.FromKnownColor(KnownColor.Yellow));
+            SolidBrush lBrush = new SolidBrush(color);
+            g.FillRectangle(lBrush, rect);
+            RectangleF rectF1 = new RectangleF(rect.Left + rect.Width / 4, rect.Top + rect.Height / 4, rect.Width / 2, rect.Height / 2);
+            Font font1 = new Font("Arial", 16, FontStyle.Bold, GraphicsUnit.Point);
+            g.DrawString("Pause", font1, Brushes.Blue, rectF1, sf);
+            
+  
+            
+        }
 
         private void paintSnake(Graphics g)
         {
