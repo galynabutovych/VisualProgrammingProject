@@ -26,16 +26,13 @@ namespace Snake
             //gameField.Height = this.ClientRectangle.Height;
             gameField.Width = 20*20;
             gameField.Height = 20 * 20;
-            gameField.Location = new Point(500, 500);
             
-            //this.DoubleBuffered = true;
-           
-            
-            gameField.Location = new Point(0, 0);
+            this.DoubleBuffered = true;
+
             this.Controls.Add(gameField);
 
-            settings = new Settings();
-            this.Controls.Add(settings);
+            //settings = new Settings();
+            //this.Controls.Add(settings);
         }
 
         private void Form1_Load(object sender, EventArgs e)
