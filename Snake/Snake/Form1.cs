@@ -26,6 +26,7 @@ namespace Snake
             //gameField.Height = this.ClientRectangle.Height;
             gameField.Width = 20*20;
             gameField.Height = 20 * 20;
+            gameField.Location = new Point(500, 500);
             
             //this.DoubleBuffered = true;
            
@@ -44,6 +45,8 @@ namespace Snake
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
         }
+
+    
        
     }
 }
