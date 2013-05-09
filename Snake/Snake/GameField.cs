@@ -65,6 +65,11 @@ namespace Snake
             Invalidate();
         }
 
+        public bool isRunning()
+        {
+            return timer.Enabled;
+        }
+
         /// <summary>
         /// Sets time interval for 1 movement of snake (speed).
         /// </summary>
@@ -99,23 +104,35 @@ namespace Snake
             switch (e.KeyCode)
             {
                 case Keys.Left:
-                    snake.direction = Direction.Left;
+                    if (isRunning() && snake.direction != Direction.Right)
+                    {
+                        snake.direction = Direction.Left;
+                    }
                     break;
 
                 case Keys.Right:
-                    snake.direction = Direction.Right;
+                    if (isRunning() && snake.direction != Direction.Left)
+                    {
+                        snake.direction = Direction.Right;
+                    }
                     break;
 
                 case Keys.Up:
-                    snake.direction = Direction.Up;
+                    if (isRunning() && snake.direction != Direction.Down)
+                    {
+                        snake.direction = Direction.Up;
+                    }
                     break;
 
                 case Keys.Down:
-                    snake.direction = Direction.Down;
+                    if (isRunning() && snake.direction != Direction.Up)
+                    {
+                        snake.direction = Direction.Down;
+                    }
                     break;
 
                 case Keys.Space:
-                    if (timer.Enabled)
+                    if (isRunning())
                     {
                         pause();
                     }
@@ -156,7 +173,7 @@ namespace Snake
         {
             Graphics g = e.Graphics;
             paintSnake(g);
-            if (!timer.Enabled)
+            if (!isRunning())
             {
                 paintPause(g);
             }
@@ -195,6 +212,5 @@ namespace Snake
             Point mappedPoint = new Point(point.X * squareWidth, point.Y * squareWidth);
             return mappedPoint;
         }
-
     }
 }

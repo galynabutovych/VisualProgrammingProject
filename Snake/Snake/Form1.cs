@@ -28,6 +28,7 @@ namespace Snake
             gameField.Height = 20 * 20;
             
             this.DoubleBuffered = true;
+            this.KeyPreview = true;
 
             this.Controls.Add(gameField);
 
@@ -42,7 +43,6 @@ namespace Snake
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
         }
-
        
         // exit
 
@@ -62,10 +62,7 @@ namespace Snake
                }
                else Close();
            }
-                      
-                       
         }
-
 
         //about
 
@@ -74,11 +71,18 @@ namespace Snake
             gameField.pause();
             About about = new About();
             about.Show();
-            
-      
         }
 
-    
-       
+        // key down event handler
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    MessageBox.Show("If U see this message U had just pressed Esc & it was caught in the Form1_KeyDown()\n\n Added this.KeyPreview = true;");
+                    break;
+            }
+        }
     }
 }
