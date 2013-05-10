@@ -48,7 +48,7 @@ namespace Snake
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            gameField.pause();
+            pauseFromGameField();
 
            DialogResult result = MessageBox.Show("Are you sure you want to exit?","Exit", MessageBoxButtons.YesNo);
 
@@ -62,13 +62,35 @@ namespace Snake
                }
                else Close();
            }
+           else
+           {
+               resumeFromGameField();
+           }
         }
+
+        public void pauseFromGameField()     // call pause from gamefield
+        {
+            gameField.pause();
+            toolStripMenuItem2.Visible = true;
+            pauseToolStripMenuItem.Visible = false;
+            
+
+        }
+
+        public void resumeFromGameField()   //call resume from gamefield
+        {
+            
+                toolStripMenuItem2.Visible = false;
+                pauseToolStripMenuItem.Visible = true;
+            
+        }
+
 
         //about
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            gameField.pause();
+            pauseFromGameField();
             About about = new About();
             about.Show();
         }
@@ -77,12 +99,52 @@ namespace Snake
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+
             switch (e.KeyCode)
             {
-                case Keys.Escape:
-                    MessageBox.Show("If U see this message U had just pressed Esc & it was caught in the Form1_KeyDown()\n\n Added this.KeyPreview = true;");
-                    break;
+                    case Keys.Escape:          //exit from escape
+                    pauseFromGameField();
+                     DialogResult result = MessageBox.Show("Are you sure you want to exit?","Exit", MessageBoxButtons.YesNo);
+
+           if (result == DialogResult.Yes)
+           {
+
+               DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
+               if (resultsave == DialogResult.Yes)
+               {
+                   // save game
+               }
+               else Close();
+           }
+           break;
+
+                case Keys.Space:       //pause (resume) from space
+           if (gameField.isRunning())
+           {
+               pauseFromGameField();
+           }
+           else
+           {
+               gameField.resume();
+               resumeFromGameField();
+           }
+           break;
+                
             }
         }
+
+        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
+             {
+
+                 pauseFromGameField();
+             }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)  // resume (menustrip)
+            {
+                gameField.resume();
+                resumeFromGameField();           
+            }                                
+           
+
     }
 }

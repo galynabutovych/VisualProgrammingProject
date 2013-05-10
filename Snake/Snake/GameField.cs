@@ -131,18 +131,7 @@ namespace Snake
                     }
                     break;
 
-                case Keys.Space:
-                    if (isRunning())
-                    {
-                        pause();
-                    }
-                    else
-                    {
-                        resume();
-                    }
-                    break;
-
-                default:
+               default:
                     return;
             }
         }
@@ -212,5 +201,6 @@ namespace Snake
             Point mappedPoint = new Point(point.X * squareWidth, point.Y * squareWidth);
             return mappedPoint;
         }
+        
     }
 }
