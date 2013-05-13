@@ -62,10 +62,7 @@ namespace Snake
                }
                else Close();
            }
-           else
-           {
-               resumeFromGameField();
-           }
+           
         }
 
         public void pauseFromGameField()     // call pause from gamefield
@@ -79,7 +76,7 @@ namespace Snake
 
         public void resumeFromGameField()   //call resume from gamefield
         {
-            
+                gameField.resume();
                 toolStripMenuItem2.Visible = false;
                 pauseToolStripMenuItem.Visible = true;
             
@@ -116,7 +113,7 @@ namespace Snake
                }
                else Close();
            }
-           break;
+               break;
 
                 case Keys.Space:       //pause (resume) from space
            if (gameField.isRunning())
@@ -125,8 +122,7 @@ namespace Snake
            }
            else
            {
-               gameField.resume();
-               resumeFromGameField();
+                resumeFromGameField();
            }
            break;
                 
@@ -141,10 +137,32 @@ namespace Snake
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)  // resume (menustrip)
             {
-                gameField.resume();
-                resumeFromGameField();           
-            }                                
-           
+               resumeFromGameField();           
+            }
 
-    }
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pauseFromGameField();
+            DialogResult result = MessageBox.Show("Are you sure you want to start new game?", "New game", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+
+                DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
+                if (resultsave == DialogResult.Yes)
+                {
+                    // save game
+                   gameField.StartGame(); //new game
+                }
+                else
+                {
+                   resumeFromGameField();
+                   
+                    gameField.StartGame(); //new game;
+                }
+            }
+
+        }
+
+   }
 }

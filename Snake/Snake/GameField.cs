@@ -41,9 +41,6 @@ namespace Snake
             squareWidth = cellWidth;            
 
             snake = new Snake(rowsCount, columsCount, 0, 0);
-            snake.growRight();
-            snake.growRight();
-            snake.growRight();
         }
 
         /// <summary>
@@ -63,6 +60,8 @@ namespace Snake
         {
             timer.Start();
             Invalidate();
+            
+            
         }
 
         public bool isRunning()
@@ -201,6 +200,11 @@ namespace Snake
             Point mappedPoint = new Point(point.X * squareWidth, point.Y * squareWidth);
             return mappedPoint;
         }
-        
+
+        public void StartGame()
+        {
+            snake = new Snake(rowsCount, columsCount, 0, 0);
+        }
+
     }
 }
