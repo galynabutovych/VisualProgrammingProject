@@ -42,10 +42,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FloralWhite;
-            this.BackgroundImage = global::Snake.Properties.Resources.Grass_wallpapers_186;
+            this.BackgroundImage = global::Snake.Properties.Resources.grass;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Location = new System.Drawing.Point(0, 24);
             this.Name = "GameField";
-            this.Size = new System.Drawing.Size(341, 300);
+            this.Size = new System.Drawing.Size(345, 282);
             this.Load += new System.EventHandler(this.GameField_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameField_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameField_KeyDown);

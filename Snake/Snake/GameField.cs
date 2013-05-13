@@ -41,6 +41,16 @@ namespace Snake
             squareWidth = cellWidth;            
 
             snake = new Snake(rowsCount, columsCount, 0, 0);
+            snake.growRight();
+            snake.growRight();
+            snake.growRight();
+            snake.growRight();
+            snake.growRight();
+            snake.growRight();
+            snake.growRight();
+            snake.growRight();
+            snake.growRight();
+            snake.growRight();
         }
 
         /// <summary>
@@ -95,7 +105,16 @@ namespace Snake
                     snake.moveDown();
                     break;
             }
-            Invalidate();
+
+            if (!snake.isSelfCollision())
+            {
+                Invalidate();
+            }
+            else
+            {
+                // collision, end of game, animate sth
+                pause();
+            }
         }
 
         private void GameField_KeyDown(object sender, KeyEventArgs e)

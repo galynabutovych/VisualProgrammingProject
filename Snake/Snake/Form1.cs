@@ -70,8 +70,6 @@ namespace Snake
             gameField.pause();
             toolStripMenuItem2.Visible = true;
             pauseToolStripMenuItem.Visible = false;
-            
-
         }
 
         public void resumeFromGameField()   //call resume from gamefield
@@ -79,7 +77,6 @@ namespace Snake
                 gameField.resume();
                 toolStripMenuItem2.Visible = false;
                 pauseToolStripMenuItem.Visible = true;
-            
         }
 
 
