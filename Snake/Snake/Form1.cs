@@ -15,7 +15,7 @@ namespace Snake
         /// <summary>
         /// Settings control.
         /// </summary>
-        Settings settings = null;
+
 
         public Form1()
         {
@@ -35,8 +35,7 @@ namespace Snake
             ClientSize =new Size(gameField.Size.Width, gameField.Size.Height + menuStrip1.Size.Height);    
            
 
-            settings = new Settings();
-            this.Controls.Add(settings);
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -47,27 +46,7 @@ namespace Snake
         {
         }
        
-        // exit
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            pauseFromGameField();
-
-           DialogResult result = MessageBox.Show("Are you sure you want to exit?","Exit", MessageBoxButtons.YesNo);
-
-           if (result == DialogResult.Yes)
-           {
-
-               DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
-               if (resultsave == DialogResult.Yes)
-               {
-                   // save game
-               }
-               else Close();
-           }
-           
-        }
-
+       
         public void pauseFromGameField()     // call pause from gamefield
         {
             gameField.pause();
@@ -140,8 +119,9 @@ namespace Snake
                resumeFromGameField();           
             }
 
-        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+                    
             pauseFromGameField();
             DialogResult result = MessageBox.Show("Are you sure you want to start new game?", "New game", MessageBoxButtons.YesNo);
 
@@ -162,7 +142,42 @@ namespace Snake
                 }
             }
 
+        
         }
+
+        // exit
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+ 
+
+            pauseFromGameField();
+
+           DialogResult result = MessageBox.Show("Are you sure you want to exit?","Exit", MessageBoxButtons.YesNo);
+
+           if (result == DialogResult.Yes)
+           {
+
+               DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
+               if (resultsave == DialogResult.Yes)
+               {
+                   // save game
+               }
+               else Close();
+           }
+         
+
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            pauseFromGameField();
+            Settings settings = new Settings();
+            settings.Show();
+        }
+
+    
+
 
    }
 }

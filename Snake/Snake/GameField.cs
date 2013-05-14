@@ -21,8 +21,8 @@ namespace Snake
         private int squareWidth = 20; /// elementary rectangular cell side width (step width too)
         private int rowsCount; /// rows count
         private int columsCount; /// colums count
-        private int X = 0; /// snake (head) X position.
-        private int Y = 0; /// snake (head) Y position.
+       // private int X = 0; /// snake (head) X position.
+       // private int Y = 0; /// snake (head) Y position.
         Snake snake = null;
 
         /// <summary>
