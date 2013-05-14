@@ -24,16 +24,19 @@ namespace Snake
             // TODO: set correct geometry
             //gameField.Width = this.ClientRectangle.Width;
             //gameField.Height = this.ClientRectangle.Height;
-            gameField.Width = 20*20;
+            gameField.Width = 20 * 20;
             gameField.Height = 20 * 20;
-            
             this.DoubleBuffered = true;
             this.KeyPreview = true;
 
             this.Controls.Add(gameField);
+            //SizeFromClientSize(gameField.Size + menuStrip1.Size);
 
-            //settings = new Settings();
-            //this.Controls.Add(settings);
+            ClientSize =new Size(gameField.Size.Width, gameField.Size.Height + menuStrip1.Size.Height);    
+           
+
+            settings = new Settings();
+            this.Controls.Add(settings);
         }
 
         private void Form1_Load(object sender, EventArgs e)
