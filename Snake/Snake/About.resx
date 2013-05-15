@@ -117,4 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Basic Rules
+
+What is the goal of the game?
+The goal is to score points by having the snake eat food. 
+
+What kills my snake? When is the game over?
+Your snake dies if its head collides with its body or with the end of gamefield.
+
+
+</value>
+  </data>
 </root>

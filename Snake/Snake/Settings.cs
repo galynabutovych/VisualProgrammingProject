@@ -15,5 +15,15 @@ namespace Snake
         {
             InitializeComponent();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Low_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
