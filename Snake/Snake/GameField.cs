@@ -26,6 +26,9 @@ namespace Snake
         Snake snake = null;
         Random random = new Random();
         private List<PictureBox> foodList;
+ int Score = 0;
+        public delegate void ScoreUpdateHandler(ScoreEventArgs e);
+        public event ScoreUpdateHandler OnUpdateScore;
         /// <summary>
         ///  Constructor.
         /// </summary>
@@ -52,6 +55,14 @@ namespace Snake
         /// <summary>
         /// Pauses the game.
         /// </summary>
+
+        public int score()
+        {
+            return Score;
+
+
+        }
+
         public void pause()
         {
             
@@ -230,6 +241,8 @@ namespace Snake
             
         }
 
+ 
+
         public void createFood()
         {
             bool accept = false;
@@ -275,8 +288,31 @@ namespace Snake
                 foodList.Remove(lItemToRemove);
                 snake.grow();
                 createFood();
+                addScore(5);
             }            
         }
-      
+
+        private void addScore(int pScore)
+        {
+            Score += pScore;
+            ScoreEventArgs args = new ScoreEventArgs(Score);
+            OnUpdateScore(args);
+
+        }
+
     }
+        public class ScoreEventArgs : EventArgs
+        {
+            public int Score { get; private set; }
+
+            public ScoreEventArgs(int score)
+            {
+                if (score > 0)
+                    Score = score;
+            }
+        }
+
+
+      
+    
 }

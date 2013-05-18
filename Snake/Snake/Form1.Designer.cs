@@ -35,13 +35,18 @@
             this.newGameToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.highScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ScoreCounterLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,22 +83,23 @@
             // newGameToolStripMenuItem1
             // 
             this.newGameToolStripMenuItem1.Name = "newGameToolStripMenuItem1";
-            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.newGameToolStripMenuItem1.Size = new System.Drawing.Size(132, 22);
             this.newGameToolStripMenuItem1.Text = "New Game";
             this.newGameToolStripMenuItem1.Click += new System.EventHandler(this.newGameToolStripMenuItem1_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
+
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
@@ -108,6 +114,14 @@
             this.toolStripMenuItem2.Text = "Resume";
             this.toolStripMenuItem2.Visible = false;
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(61, 20);
+            this.toolStripMenuItem1.Text = "Settings";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // highScoreToolStripMenuItem
             // 
@@ -133,7 +147,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -144,12 +158,40 @@
             this.toolStripMenuItem1.Text = "Settings";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2,
+            this.ScoreCounterLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 378);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(399, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(36, 17);
+            this.toolStripStatusLabel1.Text = "Score";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 17);
+            // 
+            // ScoreCounterLabel
+            // 
+            this.ScoreCounterLabel.Name = "ScoreCounterLabel";
+            this.ScoreCounterLabel.Size = new System.Drawing.Size(13, 17);
+            this.ScoreCounterLabel.Text = "0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(399, 400);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
@@ -160,6 +202,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+			this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,6 +224,10 @@
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel ScoreCounterLabel;
     }
 }
 

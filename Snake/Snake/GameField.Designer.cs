@@ -46,7 +46,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Location = new System.Drawing.Point(0, 24);
             this.Name = "GameField";
-            this.Size = new System.Drawing.Size(345, 282);
+            this.Size = new System.Drawing.Size(345, 266);
             this.Load += new System.EventHandler(this.GameField_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameField_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameField_KeyDown);

@@ -26,13 +26,14 @@ namespace Snake
             //gameField.Height = this.ClientRectangle.Height;
             gameField.Width = 20 * 20;
             gameField.Height = 20 * 20;
+            gameField.OnUpdateScore +=new GameField.ScoreUpdateHandler(onScoreChanged);
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             
             this.Controls.Add(gameField);
             //SizeFromClientSize(gameField.Size + menuStrip1.Size);
 
-            ClientSize =new Size(gameField.Size.Width, gameField.Size.Height + menuStrip1.Size.Height);    
+            ClientSize =new Size(gameField.Size.Width, gameField.Size.Height + menuStrip1.Size.Height + statusStrip1.Size.Height);    
            
 
            
@@ -71,7 +72,7 @@ namespace Snake
             about.Show();
         }
 
-        // key down event handler
+          // key down event handler
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -179,6 +180,8 @@ namespace Snake
             settings.OnUpdateSpeed += new Settings.SpeedUpdateHandler(speedChanged);
             settings.TopMost = true;
             settings.Show();
+            resumeFromGameField();
+
             
         }
 
@@ -190,8 +193,11 @@ namespace Snake
             }
         }
 
-    
+        void onScoreChanged(ScoreEventArgs e)
+        {
 
+            this.ScoreCounterLabel.Text = e.Score.ToString();
+        }
 
    }
 }
