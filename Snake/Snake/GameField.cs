@@ -24,11 +24,14 @@ namespace Snake
        // private int X = 0; /// snake (head) X position.
        // private int Y = 0; /// snake (head) Y position.
         Snake snake = null;
+        Point oldSnakeHead = new Point();
         Random random = new Random();
         private List<PictureBox> foodList;
- int Score = 0;
+        int Score = 0;
+        bool isGameOver = false;
         public delegate void ScoreUpdateHandler(ScoreEventArgs e);
         public event ScoreUpdateHandler OnUpdateScore;
+        public Direction requestedDirection = Direction.Right;
         /// <summary>
         ///  Constructor.
         /// </summary>
@@ -76,9 +79,7 @@ namespace Snake
         public void resume()
         {
             timer.Start();
-            Invalidate();
-            
-            
+            Invalidate();                      
         }
 
         public bool isRunning()
@@ -93,11 +94,23 @@ namespace Snake
         public void setTimerInterval(int msec)
         {
             timer.Interval = msec;
-
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            snake.direction = requestedDirection;
+            moveSnake();
+        }
+
+        void moveSnake()
+        {
+            oldSnakeHead = snake.headPosition();
+            if (snake.isSelfCollision())
+            {
+                gameOver();
+                Invalidate();
+                return;
+            }
             switch (snake.direction)
             {
                 case Direction.Left:
@@ -115,15 +128,12 @@ namespace Snake
             }
 
             isTimeToEat();
-            if (!snake.isSelfCollision())
-            {
-                Invalidate();
-            }
-            else
-            {
-                // collision, end of game, animate sth
-                pause();
-            }
+            Invalidate();
+        }
+
+        void gameOver()
+        {
+            isGameOver = true;
         }
 
         private void GameField_KeyDown(object sender, KeyEventArgs e)
@@ -133,28 +143,44 @@ namespace Snake
                 case Keys.Left:
                     if (isRunning() && snake.direction != Direction.Right)
                     {
-                        snake.direction = Direction.Left;
+                        requestedDirection = Direction.Left;
+                        //snake.direction = Direction.Left;
+                        //timer.Enabled = false;
+                        //moveSnake();
+                        //timer.Enabled = true;
                     }
                     break;
 
                 case Keys.Right:
                     if (isRunning() && snake.direction != Direction.Left)
                     {
-                        snake.direction = Direction.Right;
+                        requestedDirection = Direction.Right;
+                        //snake.direction = Direction.Right;
+                        //timer.Enabled = false;
+                        //moveSnake();
+                        //timer.Enabled = true;
                     }
                     break;
 
                 case Keys.Up:
                     if (isRunning() && snake.direction != Direction.Down)
                     {
-                        snake.direction = Direction.Up;
+                        requestedDirection = Direction.Up;
+                        //snake.direction = Direction.Up;
+                        //timer.Enabled = false;
+                        //moveSnake();
+                        //timer.Enabled = true;
                     }
                     break;
 
                 case Keys.Down:
                     if (isRunning() && snake.direction != Direction.Up)
                     {
-                        snake.direction = Direction.Down;
+                        requestedDirection = Direction.Down;
+                        //snake.direction = Direction.Down;
+                        //timer.Enabled = false;
+                        //moveSnake();
+                        //timer.Enabled = true;
                     }
                     break;
 
@@ -191,7 +217,11 @@ namespace Snake
         {
             Graphics g = e.Graphics;
             paintSnake(g);
-            if (!isRunning())
+            if (isGameOver)
+            {
+                paintGameOver(g);
+            }
+            else if (!isRunning())
             {
                 paintPause(g);
             }
@@ -199,7 +229,6 @@ namespace Snake
 
 
         // Visual notification that game is paused
-
         private void paintPause(Graphics g)
         {
             StringFormat sf = new StringFormat();
@@ -211,6 +240,20 @@ namespace Snake
             g.FillRectangle(lBrush, rect);
             Font font1 = new Font("Arial", 16, FontStyle.Bold, GraphicsUnit.Point);
             g.DrawString("Paused", font1, Brushes.Blue, rect, sf);
+        }
+
+        // Visual notification that game is over
+        private void paintGameOver(Graphics g)
+        {
+            StringFormat sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;        // horizontal alignment
+            sf.LineAlignment = StringAlignment.Center;    // vertical alignment
+            Rectangle rect = new Rectangle(Width / 4, Height / 4, Width / 2, Height / 2);
+            Color color = Color.FromArgb(100, Color.FromKnownColor(KnownColor.Red));
+            SolidBrush lBrush = new SolidBrush(color);
+            g.FillRectangle(lBrush, rect);
+            Font font1 = new Font("Arial", 16, FontStyle.Bold, GraphicsUnit.Point);
+            g.DrawString("Game Over", font1, Brushes.Red, rect, sf);
         }
 
         private void paintSnake(Graphics g)
@@ -245,16 +288,14 @@ namespace Snake
 
         public void StartGame()
         {
+            isGameOver = false;
             snake = new Snake(rowsCount, columsCount, 0, 0);
             snake.growRight();
             snake.growRight();
             snake.growRight();
-           
-            
+            Invalidate();
         }
-
- 
-
+         
         public void createFood()
         {
             bool accept = false;
@@ -309,9 +350,7 @@ namespace Snake
             Score += pScore;
             ScoreEventArgs args = new ScoreEventArgs(Score);
             OnUpdateScore(args);
-
         }
-
     }
         public class ScoreEventArgs : EventArgs
         {

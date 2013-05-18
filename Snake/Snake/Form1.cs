@@ -59,9 +59,7 @@ namespace Snake
                 pauseToolStripMenuItem.Visible = true;
         }
 
-
         //about
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pauseFromGameField();
@@ -70,45 +68,42 @@ namespace Snake
         }
 
           // key down event handler
-
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
 
             switch (e.KeyCode)
             {
-                    case Keys.Escape:          //exit from escape
+                case Keys.Escape:          //exit from escape
                     pauseFromGameField();
-                     DialogResult result = MessageBox.Show("Are you sure you want to exit?","Exit", MessageBoxButtons.YesNo);
+                    DialogResult result = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButtons.YesNo);
 
-           if (result == DialogResult.Yes)
-           {
+                    if (result == DialogResult.Yes)
+                    {
 
-               DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
-               if (resultsave == DialogResult.Yes)
-               {
-                   // save game
-               }
-               else Close();
-           }
-               break;
+                        DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
+                        if (resultsave == DialogResult.Yes)
+                        {
+                            // save game
+                        }
+                        else Close();
+                    }
+                    break;
 
                 case Keys.Space:       //pause (resume) from space
-           if (gameField.isRunning())
-           {
-               pauseFromGameField();
-           }
-           else
-           {
-                resumeFromGameField();
-           }
-           break;
-                
+                    if (gameField.isRunning())
+                    {
+                        pauseFromGameField();
+                    }
+                    else
+                    {
+                        resumeFromGameField();
+                    }
+                    break;
             }
         }
 
         private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
              {
-
                  pauseFromGameField();
              }
 
@@ -119,7 +114,6 @@ namespace Snake
 
         private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-                    
             pauseFromGameField();
             DialogResult result = MessageBox.Show("Are you sure you want to start new game?", "New game", MessageBoxButtons.YesNo);
 
@@ -147,24 +141,20 @@ namespace Snake
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
- 
-
             pauseFromGameField();
 
-           DialogResult result = MessageBox.Show("Are you sure you want to exit?","Exit", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButtons.YesNo);
 
-           if (result == DialogResult.Yes)
-           {
+            if (result == DialogResult.Yes)
+            {
 
-               DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
-               if (resultsave == DialogResult.Yes)
-               {
-                   // save game
-               }
-               else Close();
-           }
-         
-
+                DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
+                if (resultsave == DialogResult.Yes)
+                {
+                    // save game
+                }
+                else Close();
+            }
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -190,7 +180,6 @@ namespace Snake
 
         void onScoreChanged(ScoreEventArgs e)
         {
-
             this.ScoreCounterLabel.Text = e.Score.ToString();
         }
 
