@@ -29,22 +29,21 @@ namespace Snake
         {
             SpeedEventArgs args = new SpeedEventArgs(1000);
             OnUpdateSpeed(args);
-            Close();
-            
+            Hide();
         }
 
         private void High_Click(object sender, EventArgs e)
         {
             SpeedEventArgs args = new SpeedEventArgs(200);
             OnUpdateSpeed(args);
-            Close();
+            Hide();
         }
 
         private void Medium_Click(object sender, EventArgs e)
         {
             SpeedEventArgs args = new SpeedEventArgs(400);
             OnUpdateSpeed(args);
-            Close();
+            Hide();
         }
     }
         

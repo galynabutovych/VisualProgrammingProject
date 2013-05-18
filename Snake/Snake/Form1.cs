@@ -34,9 +34,6 @@ namespace Snake
             //SizeFromClientSize(gameField.Size + menuStrip1.Size);
 
             ClientSize =new Size(gameField.Size.Width, gameField.Size.Height + menuStrip1.Size.Height + statusStrip1.Size.Height);    
-           
-
-           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -176,13 +173,11 @@ namespace Snake
             if (settings == null)
             {
                 settings = new Settings();
+                settings.OnUpdateSpeed += new Settings.SpeedUpdateHandler(speedChanged);
+                settings.TopMost = true;
             }
-            settings.OnUpdateSpeed += new Settings.SpeedUpdateHandler(speedChanged);
-            settings.TopMost = true;
             settings.Show();
             resumeFromGameField();
-
-            
         }
 
         void speedChanged(SpeedEventArgs e)

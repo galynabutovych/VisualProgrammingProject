@@ -218,11 +218,23 @@ namespace Snake
             List<Point> snakeBody = snake.getBody();
             foreach (Point currentLink in snakeBody)
             {
-                Point lefyTop = leftTopRectPosition(currentLink);
-                Rectangle rect = new Rectangle(lefyTop.X, lefyTop.Y, squareWidth, squareWidth);
-                LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Red, Color.Yellow, LinearGradientMode.BackwardDiagonal);
-                g.FillRectangle(lBrush, rect);
+                if (currentLink != snake.headPosition() && currentLink != snake.tailPosition())
+                {
+                    Point lefTop = leftTopRectPosition(currentLink);
+                    Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
+                    LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Green, Color.Yellow, LinearGradientMode.BackwardDiagonal);
+                    g.FillRectangle(lBrush, rect);
+                }
             }
+            Point lefTopHead = leftTopRectPosition(snake.headPosition());
+            Rectangle rectHead = new Rectangle(lefTopHead.X, lefTopHead.Y, squareWidth, squareWidth);
+            LinearGradientBrush lBrushHead = new LinearGradientBrush(rectHead, Color.Red, Color.Yellow, LinearGradientMode.BackwardDiagonal);
+            g.FillRectangle(lBrushHead, rectHead);
+
+            Point lefTopTail = leftTopRectPosition(snake.tailPosition());
+            Rectangle rectTail = new Rectangle(lefTopTail.X, lefTopTail.Y, squareWidth, squareWidth);
+            LinearGradientBrush lBrushTail = new LinearGradientBrush(rectTail, Color.Beige, Color.Yellow, LinearGradientMode.BackwardDiagonal);
+            g.FillRectangle(lBrushTail, rectTail);
         }
 
         private Point leftTopRectPosition(Point point)
