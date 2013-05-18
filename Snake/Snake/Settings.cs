@@ -11,6 +11,9 @@ namespace Snake
 {
     public partial class Settings : Form
     {
+        public delegate void SpeedUpdateHandler(SpeedEventArgs e);
+        public event SpeedUpdateHandler OnUpdateSpeed;
+
         public Settings()
         {
             InitializeComponent();
@@ -23,7 +26,32 @@ namespace Snake
 
         private void Low_Click(object sender, EventArgs e)
         {
+            SpeedEventArgs args = new SpeedEventArgs(1000);
+            OnUpdateSpeed(args);
+        }
 
+        private void High_Click(object sender, EventArgs e)
+        {
+            SpeedEventArgs args = new SpeedEventArgs(200);
+            OnUpdateSpeed(args);
+        }
+
+        private void Medium_Click(object sender, EventArgs e)
+        {
+            SpeedEventArgs args = new SpeedEventArgs(400);
+            OnUpdateSpeed(args);
         }
     }
+        
+public class SpeedEventArgs : EventArgs
+{
+    public int Speed { get; private set; }
+
+    public SpeedEventArgs(int speed)
+    {
+        if(speed > 0)
+        Speed = speed;
+    }
+}
+
 }

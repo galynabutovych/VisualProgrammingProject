@@ -11,7 +11,7 @@ namespace Snake
         /// Game field.
         /// </summary>
         GameField gameField = null;
-
+        Settings settings = null;
         /// <summary>
         /// Settings control.
         /// </summary>
@@ -28,7 +28,7 @@ namespace Snake
             gameField.Height = 20 * 20;
             this.DoubleBuffered = true;
             this.KeyPreview = true;
-
+            
             this.Controls.Add(gameField);
             //SizeFromClientSize(gameField.Size + menuStrip1.Size);
 
@@ -172,8 +172,22 @@ namespace Snake
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             pauseFromGameField();
-            Settings settings = new Settings();
+            if (settings == null)
+            {
+                settings = new Settings();
+            }
+            settings.OnUpdateSpeed += new Settings.SpeedUpdateHandler(speedChanged);
+            settings.TopMost = true;
             settings.Show();
+            
+        }
+
+        void speedChanged(SpeedEventArgs e)
+        {
+            if (gameField != null)
+            {
+                gameField.setTimerInterval(e.Speed);
+            }
         }
 
     

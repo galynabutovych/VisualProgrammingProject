@@ -52,6 +52,7 @@
             this.Medium.TabIndex = 1;
             this.Medium.Text = "Medium";
             this.Medium.UseVisualStyleBackColor = true;
+            this.Medium.Click += new System.EventHandler(this.Medium_Click);
             // 
             // High
             // 
@@ -61,6 +62,7 @@
             this.High.TabIndex = 2;
             this.High.Text = "High";
             this.High.UseVisualStyleBackColor = true;
+            this.High.Click += new System.EventHandler(this.High_Click);
             // 
             // label1
             // 
