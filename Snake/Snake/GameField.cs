@@ -24,7 +24,8 @@ namespace Snake
        // private int X = 0; /// snake (head) X position.
        // private int Y = 0; /// snake (head) Y position.
         Snake snake = null;
-
+        Random random = new Random();
+        private List<PictureBox> foodList;
         /// <summary>
         ///  Constructor.
         /// </summary>
@@ -38,19 +39,14 @@ namespace Snake
 
             rowsCount = rows;
             columsCount = colums;
-            squareWidth = cellWidth;            
+            squareWidth = cellWidth;
+            foodList = new List<PictureBox>();
 
             snake = new Snake(rowsCount, columsCount, 0, 0);
             snake.growRight();
             snake.growRight();
             snake.growRight();
-            snake.growRight();
-            snake.growRight();
-            snake.growRight();
-            snake.growRight();
-            snake.growRight();
-            snake.growRight();
-            snake.growRight();
+                      
         }
 
         /// <summary>
@@ -86,6 +82,7 @@ namespace Snake
         public void setTimerInterval(int msec)
         {
             timer.Interval = msec;
+
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -106,6 +103,7 @@ namespace Snake
                     break;
             }
 
+            isTimeToEat();
             if (!snake.isSelfCollision())
             {
                 Invalidate();
@@ -157,6 +155,8 @@ namespace Snake
         private void GameField_Load(object sender, EventArgs e)
         {
             timer.Start();
+            createFood();
+
         }
         protected override bool IsInputKey(Keys keyData)
         {
@@ -223,7 +223,99 @@ namespace Snake
         public void StartGame()
         {
             snake = new Snake(rowsCount, columsCount, 0, 0);
+            snake.growRight();
+            snake.growRight();
+            snake.growRight();
+           
+            
         }
 
+        public void createFood()
+        {
+            bool accept = false;
+            int foodX = 0;
+            int foodY = 0;
+            while (!accept)
+            {
+                foodX = random.Next(0, columsCount);
+                foodY = random.Next(0, rowsCount);
+                accept = true;
+                List<Point> snakeBody = snake.getBody();
+                foreach (Point currentLink in snakeBody)
+                {
+                    if (foodX == currentLink.X && foodY == currentLink.Y)
+                    {
+                        accept = false;
+                    }
+                }
+            }
+            PictureBox food = new System.Windows.Forms.PictureBox();
+            Point foodPos = new Point(foodX, foodY);
+            foodList.Add(food);
+            food.Location = leftTopRectPosition(foodPos);
+            food.Width = squareWidth;
+            food.Height = squareWidth;
+            Controls.Add(food);
+        }
+
+        public void isTimeToEat()
+        {
+            PictureBox lItemToRemove = null;
+            foreach (PictureBox currentLink in foodList)
+            {
+                if (leftTopRectPosition(snake.headPosition()) == currentLink.Location)
+                {
+                    lItemToRemove = currentLink;
+                    Invalidate();
+                }
+            }
+            if (lItemToRemove != null)
+            {
+                Controls.Remove(lItemToRemove);
+                createFood();
+            }            
+        }
+
+        /*
+        private void BonusTimer_Tick(object sender, EventArgs e)
+        {
+            Random randomNumber = new Random();
+            int LuckyNumber = randomNumber.Next(1, 100);
+            if (LuckyNumber <= 1)
+            {
+                CreateBonus();
+            }
+
+        }
+
+        public void CreateBonus()
+        {
+            Crashed = true;
+            while (Crashed = true)
+            {
+            Random randomNumber = new Random();
+            int x = randomNumber.Next((BonusPic.Width/2), (this.Width - BonusPic.Width)) - (BonusPic.Width/2);
+            int y = randomNumber.Next((BonusPic.Height / 2), (this.Height - (BonusPic.Height*2))) - (BonusPic.Height / 2);
+           /* Object(x, y, "Food");
+            Object(x+20, y+20, "Food");
+            Object(x + 20, y , "Food");
+            Object(x, y + 20, "Food");
+
+                if (Crashed == false)
+                {
+                    BonusPic.Left = x;
+                    BonusPic.Top = y;
+                    BonusPic.Visible = true;
+                }
+            }
+
+        }
+
+        bool Crashed = false;
+        PictureBox[] Wall = new PictureBox[1000];*/
+
+
+
+       
     }
 }
