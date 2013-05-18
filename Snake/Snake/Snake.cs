@@ -162,13 +162,43 @@ namespace Snake
             }
         }
 
+        public Point tailPosition()
+        {
+            if (body.Count > 0)
+            {
+                Point point = body.Last.Value;
+                return point;
+            }
+            else
+            {
+                return new Point();
+            }
+        }
+
+
         public bool isSelfCollision()
         {
             bool collides = false;
             if (body.Count > 0)
             {
                 collides = true;
-                Point head = body.First.Value;
+                Point newHead = headPosition();
+                switch (direction)
+                {
+                    case Direction.Left:
+                        newHead.X--;
+                        break;
+                    case Direction.Up:
+                        newHead.Y--;
+                        break;
+                    case Direction.Right:
+                        newHead.X++;
+                        break;
+                    case Direction.Down:
+                        newHead.Y++;
+                        break;
+                }
+
                 foreach (Point point in body)
                 {
                     if (collides)
@@ -177,9 +207,9 @@ namespace Snake
                         collides = false;
                         continue;
                     }
-                    if (point.Equals(head))
+                    if (point.Equals(newHead) && !point.Equals(tailPosition()))
                     {
-                        // collosion occured
+                        // collision occured
                         collides = true;
                         break;
                     }
@@ -193,7 +223,7 @@ namespace Snake
             return body.ToList<Point>();
         }
 
-        public void grow()
+		public void grow()
         {
             if (direction == Direction.Down) growDown();
             else if (direction == Direction.Right) growRight();
