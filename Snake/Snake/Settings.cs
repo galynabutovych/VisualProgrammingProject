@@ -27,7 +27,7 @@ namespace Snake
 
         private void Low_Click(object sender, EventArgs e)
         {
-            SpeedEventArgs args = new SpeedEventArgs(1000);
+            SpeedEventArgs args = new SpeedEventArgs(900);
             OnUpdateSpeed(args);
             Hide();
         }

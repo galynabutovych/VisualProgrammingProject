@@ -27,6 +27,7 @@ namespace Snake
         Point oldSnakeHead = new Point();
         Random random = new Random();
         private List<PictureBox> foodList;
+        Dictionary<Point, int> foodByScore = new Dictionary<Point, int>();
         int Score = 0;
         bool isGameOver = false;
         public delegate void ScoreUpdateHandler(ScoreEventArgs e);
@@ -46,7 +47,7 @@ namespace Snake
             rowsCount = rows;
             columsCount = colums;
             squareWidth = cellWidth;
-            foodList = new List<PictureBox>();
+            //foodList = new List<PictureBox>();
 
             snake = new Snake(rowsCount, columsCount, 0, 0);
             snake.growRight();
@@ -62,13 +63,10 @@ namespace Snake
         public int score()
         {
             return Score;
-
-
         }
 
         public void pause()
         {
-            
             timer.Stop();
             Invalidate();
         }
@@ -111,6 +109,7 @@ namespace Snake
                 Invalidate();
                 return;
             }
+            if(!eat())
             switch (snake.direction)
             {
                 case Direction.Left:
@@ -126,14 +125,16 @@ namespace Snake
                     snake.moveDown();
                     break;
             }
-
-            isTimeToEat();
             Invalidate();
         }
 
         void gameOver()
         {
             isGameOver = true;
+            timer.Stop();
+            Invalidate();
+            Score = 0;
+            addScore(0);
         }
 
         private void GameField_KeyDown(object sender, KeyEventArgs e)
@@ -216,6 +217,7 @@ namespace Snake
         private void GameField_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            paintFood(g);
             paintSnake(g);
             if (isGameOver)
             {
@@ -280,6 +282,17 @@ namespace Snake
             g.FillRectangle(lBrushTail, rectTail);
         }
 
+        private void paintFood(Graphics g)
+        {
+            foreach (Point currentLink in foodByScore.Keys)
+            {
+                Point lefTop = leftTopRectPosition(currentLink);
+                Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
+                LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Pink, Color.BlueViolet, LinearGradientMode.BackwardDiagonal);
+                g.FillRectangle(lBrush, rect);
+            }
+        }
+        
         private Point leftTopRectPosition(Point point)
         {
             Point mappedPoint = new Point(point.X * squareWidth, point.Y * squareWidth);
@@ -290,9 +303,11 @@ namespace Snake
         {
             isGameOver = false;
             snake = new Snake(rowsCount, columsCount, 0, 0);
+            requestedDirection = snake.direction;
             snake.growRight();
             snake.growRight();
             snake.growRight();
+            timer.Start();
             Invalidate();
         }
          
@@ -315,34 +330,46 @@ namespace Snake
                     }
                 }
             }
-            PictureBox food = new System.Windows.Forms.PictureBox();
+            //PictureBox food = new System.Windows.Forms.PictureBox();
             Point foodPos = new Point(foodX, foodY);
-            foodList.Add(food);
-            food.Location = leftTopRectPosition(foodPos);
-            food.Width = squareWidth;
-            food.Height = squareWidth;
-            Controls.Add(food);
+            //foodList.Add(food);
+            foodByScore.Add(foodPos, 4);
+            //food.Location = leftTopRectPosition(foodPos);
+            //food.Width = squareWidth;
+            //food.Height = squareWidth;
+            //Controls.Add(food);
         }
 
-        public void isTimeToEat()
+        public bool eat()
         {
-            PictureBox lItemToRemove = null;
-            foreach (PictureBox currentLink in foodList)
+            //Point lItemToRemove = null;
+            foreach (Point currentLink in foodByScore.Keys)
             {
-                if (leftTopRectPosition(snake.headPosition()) == currentLink.Location)
+                if (snake.headPosition() == currentLink)
                 {
-                    lItemToRemove = currentLink;
+                    //lItemToRemove = currentLink;
+                    //Controls.Remove(lItemToRemove);
+                    //foodList.Remove(lItemToRemove);
+                    addScore(foodByScore[currentLink]);
+                    foodByScore.Remove(currentLink);
+                    snake.grow();
+                    createFood();                    
                     Invalidate();
+                    return true;                    
                 }
             }
-            if (lItemToRemove != null)
-            {
-                Controls.Remove(lItemToRemove);
-                foodList.Remove(lItemToRemove);
-                snake.grow();
-                createFood();
-                addScore(5);
-            }            
+            //if (lItemToRemove != null)
+            //{
+            //    Controls.Remove(lItemToRemove);
+            //    foodList.Remove(lItemToRemove);
+            //    Invalidate();
+            //    snake.grow();
+            //    createFood();
+            //    addScore(5);
+                
+            //    return true;
+            //}
+            return false;
         }
 
         private void addScore(int pScore)
