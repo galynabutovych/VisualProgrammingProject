@@ -272,50 +272,11 @@ namespace Snake
             if (lItemToRemove != null)
             {
                 Controls.Remove(lItemToRemove);
+                foodList.Remove(lItemToRemove);
+                snake.grow();
                 createFood();
             }            
         }
-
-        /*
-        private void BonusTimer_Tick(object sender, EventArgs e)
-        {
-            Random randomNumber = new Random();
-            int LuckyNumber = randomNumber.Next(1, 100);
-            if (LuckyNumber <= 1)
-            {
-                CreateBonus();
-            }
-
-        }
-
-        public void CreateBonus()
-        {
-            Crashed = true;
-            while (Crashed = true)
-            {
-            Random randomNumber = new Random();
-            int x = randomNumber.Next((BonusPic.Width/2), (this.Width - BonusPic.Width)) - (BonusPic.Width/2);
-            int y = randomNumber.Next((BonusPic.Height / 2), (this.Height - (BonusPic.Height*2))) - (BonusPic.Height / 2);
-           /* Object(x, y, "Food");
-            Object(x+20, y+20, "Food");
-            Object(x + 20, y , "Food");
-            Object(x, y + 20, "Food");
-
-                if (Crashed == false)
-                {
-                    BonusPic.Left = x;
-                    BonusPic.Top = y;
-                    BonusPic.Visible = true;
-                }
-            }
-
-        }
-
-        bool Crashed = false;
-        PictureBox[] Wall = new PictureBox[1000];*/
-
-
-
-       
+      
     }
 }

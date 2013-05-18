@@ -192,5 +192,13 @@ namespace Snake
         {
             return body.ToList<Point>();
         }
+
+        public void grow()
+        {
+            if (direction == Direction.Down) growDown();
+            else if (direction == Direction.Right) growRight();
+            else if (direction == Direction.Left) growLeft();
+            else if (direction == Direction.Up) growUp();
+        }
     }
 }
