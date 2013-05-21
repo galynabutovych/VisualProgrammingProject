@@ -130,6 +130,12 @@ namespace Snake
                     snake.moveDown();
                     break;
             }
+            if (snake.collidesWithWall())
+            {
+                gameOver();
+                Invalidate();
+                return;
+            }
             Invalidate();
         }
 
