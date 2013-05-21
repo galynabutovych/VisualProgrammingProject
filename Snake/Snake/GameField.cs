@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using Snake.Properties;
+using System.Resources;
+using Snake.Resources;
 
 namespace Snake
 {
@@ -33,6 +36,8 @@ namespace Snake
         public delegate void ScoreUpdateHandler(ScoreEventArgs e);
         public event ScoreUpdateHandler OnUpdateScore;
         public Direction requestedDirection = Direction.Right;
+        ResourceManager resourceManager = new ResourceManager
+               ("snake", typeof(GameField).Assembly);
         /// <summary>
         ///  Constructor.
         /// </summary>
@@ -261,6 +266,7 @@ namespace Snake
         private void paintSnake(Graphics g)
         {
             List<Point> snakeBody = snake.getBody();
+            // body
             foreach (Point currentLink in snakeBody)
             {
                 if (currentLink != snake.headPosition() && currentLink != snake.tailPosition())
@@ -271,11 +277,23 @@ namespace Snake
                     g.FillRectangle(lBrush, rect);
                 }
             }
+
+            //head
             Point lefTopHead = leftTopRectPosition(snake.headPosition());
             Rectangle rectHead = new Rectangle(lefTopHead.X, lefTopHead.Y, squareWidth, squareWidth);
             LinearGradientBrush lBrushHead = new LinearGradientBrush(rectHead, Color.Red, Color.Yellow, LinearGradientMode.BackwardDiagonal);
             g.FillRectangle(lBrushHead, rectHead);
+           // Bitmap headImage = (Bitmap)resourceManager.GetObject("head");
+            //g.DrawImage(headImage, lefTopHead);
+            //Bitmap headImage = global::Snake.Properties.Resources.picture_1506;
+            Bitmap headImage = global::Snake.Resources.snake.head;
+            g.DrawImage(headImage, rectHead);
+            
 
+            
+
+
+            //tail
             Point lefTopTail = leftTopRectPosition(snake.tailPosition());
             Rectangle rectTail = new Rectangle(lefTopTail.X, lefTopTail.Y, squareWidth, squareWidth);
             LinearGradientBrush lBrushTail = new LinearGradientBrush(rectTail, Color.Beige, Color.Yellow, LinearGradientMode.BackwardDiagonal);

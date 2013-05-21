@@ -67,6 +67,11 @@
     <Compile Include="GameField.Designer.cs">
       <DependentUpon>GameField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Resources\snake.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>snake.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +99,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Resources\snake.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>snake.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +125,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\picture-1506.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\head.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
