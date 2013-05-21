@@ -273,8 +273,10 @@ namespace Snake
                 {
                     Point lefTop = leftTopRectPosition(currentLink);
                     Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
-                    LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Green, Color.Yellow, LinearGradientMode.BackwardDiagonal);
-                    g.FillRectangle(lBrush, rect);
+                    //LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Green, Color.Yellow, LinearGradientMode.BackwardDiagonal);
+                    //g.FillRectangle(lBrush, rect);
+                    Bitmap bodyImage = global::Snake.Resources.snake.body;
+                    g.DrawImage(bodyImage, rect);
                 }
             }
 
@@ -288,9 +290,6 @@ namespace Snake
             //Bitmap headImage = global::Snake.Properties.Resources.picture_1506;
             Bitmap headImage = global::Snake.Resources.snake.head;
             g.DrawImage(headImage, rectHead);
-            
-
-            
 
 
             //tail
@@ -298,6 +297,8 @@ namespace Snake
             Rectangle rectTail = new Rectangle(lefTopTail.X, lefTopTail.Y, squareWidth, squareWidth);
             LinearGradientBrush lBrushTail = new LinearGradientBrush(rectTail, Color.Beige, Color.Yellow, LinearGradientMode.BackwardDiagonal);
             g.FillRectangle(lBrushTail, rectTail);
+            Bitmap tailImage = global::Snake.Resources.snake.tail;
+            g.DrawImage(tailImage, rectTail);
         }
 
         private void paintFood(Graphics g)
@@ -308,6 +309,7 @@ namespace Snake
                 Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
                 LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Pink, Color.BlueViolet, LinearGradientMode.BackwardDiagonal);
                 g.FillRectangle(lBrush, rect);
+
             }
         }
         

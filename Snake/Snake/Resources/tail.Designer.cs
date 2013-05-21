@@ -22,14 +22,14 @@ namespace Snake.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class snake {
+    internal class tail {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal snake() {
+        internal tail() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Snake.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Snake.Resources.snake", typeof(snake).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Snake.Resources.tail", typeof(tail).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,27 +57,6 @@ namespace Snake.Resources {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        internal static System.Drawing.Bitmap body {
-            get {
-                object obj = ResourceManager.GetObject("body", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap head {
-            get {
-                object obj = ResourceManager.GetObject("head", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap tail {
-            get {
-                object obj = ResourceManager.GetObject("tail", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

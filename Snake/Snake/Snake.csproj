@@ -72,6 +72,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>snake.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\tail.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>tail.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +108,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>snake.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\tail.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>tail.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,6 +137,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\head.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tail.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\body.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image1.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
