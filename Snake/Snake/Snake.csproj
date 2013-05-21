@@ -72,11 +72,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>snake.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\tail.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>tail.resx</DependentUpon>
-    </Compile>
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,10 +102,6 @@
     <EmbeddedResource Include="Resources\snake.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>snake.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\tail.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>tail.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
