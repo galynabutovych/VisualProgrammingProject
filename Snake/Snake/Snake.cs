@@ -12,6 +12,7 @@ namespace Snake
         public Direction direction = Direction.Right; /// snake direction
         int XConstraint;
         int YConstraint;
+        bool collides = false;
 
         private LinkedList<Point> body; /// snake position (from head to tail, in relative coordinates)
 
@@ -50,6 +51,11 @@ namespace Snake
                 {
                     updateHead(newHead);
                 }
+                else
+                {
+                    collides = true;
+                    // wall
+                }
             }
         }
 
@@ -63,6 +69,11 @@ namespace Snake
                 {
                     updateHead(newHead);
                     cutTail();
+                }
+                else
+                {
+                    collides = true;
+                    // wall
                 }
             }
             
@@ -78,6 +89,11 @@ namespace Snake
                 {
                     updateHead(newHead);
                 }
+                else
+                {
+                    collides = true;
+                    // wall
+                }
             }
         }
 
@@ -92,6 +108,11 @@ namespace Snake
                     updateHead(newHead);
                     cutTail();
                 }
+                else
+                {
+                    collides = true;
+                    // wall
+                }
             }
         }
 
@@ -104,6 +125,11 @@ namespace Snake
                 if (newHead.X < XConstraint)
                 {
                     updateHead(newHead);
+                }
+                else
+                {
+                    collides = true;
+                    // wall
                 }
             }
         }
@@ -119,6 +145,11 @@ namespace Snake
                     updateHead(newHead);
                     cutTail();
                 }
+                else
+                {
+                    collides = true;
+                    // wall
+                }
             }
         }
 
@@ -132,6 +163,11 @@ namespace Snake
                 {
                     updateHead(newHead);
                 }
+                else
+                {
+                    collides = true;
+                    // wall
+                }
             }
         }
 
@@ -143,8 +179,14 @@ namespace Snake
                 Point newHead = new Point(head.X, head.Y + 1);
                 if (newHead.Y < YConstraint)
                 {
+
                     updateHead(newHead);
                     cutTail();
+                }
+                else
+                {
+                    collides = true;
+                    // wall
                 }
             }
         }
@@ -175,6 +217,10 @@ namespace Snake
             }
         }
 
+        public bool collidesWithWall()
+        {
+            return collides;
+        }
 
         public bool isSelfCollision()
         {
