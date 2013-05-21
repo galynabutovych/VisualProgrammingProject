@@ -73,5 +73,12 @@ namespace Snake.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap picture_1506 {
+            get {
+                object obj = ResourceManager.GetObject("picture-1506", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
