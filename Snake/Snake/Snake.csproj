@@ -67,15 +67,15 @@
     <Compile Include="GameField.Designer.cs">
       <DependentUpon>GameField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\snake.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>snake.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\tail.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>tail.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>
@@ -104,13 +104,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Resources\Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\snake.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>snake.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\tail.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>tail.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
@@ -146,6 +146,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Image1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9317588-grass-background-with-flowers-bees-and-butterfly.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9317588-grass-background-with-flowers-bees-and-butterfly1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fastfood.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\f.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

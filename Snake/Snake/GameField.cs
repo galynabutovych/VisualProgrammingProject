@@ -10,6 +10,8 @@ using System.Drawing.Drawing2D;
 using Snake.Properties;
 using System.Resources;
 using Snake.Resources;
+using System.Media;
+
 
 namespace Snake
 {
@@ -281,16 +283,16 @@ namespace Snake
                     Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
                     //LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Green, Color.Yellow, LinearGradientMode.BackwardDiagonal);
                     //g.FillRectangle(lBrush, rect);
-                    Bitmap bodyImage = global::Snake.Resources.snake.body;
-                    g.DrawImage(bodyImage, rect);
+                    Bitmap bodyBody = global::Snake.Resources.snake.body;
+                    g.DrawImage(bodyBody, rect);
                 }
             }
 
             //head
             Point lefTopHead = leftTopRectPosition(snake.headPosition());
             Rectangle rectHead = new Rectangle(lefTopHead.X, lefTopHead.Y, squareWidth, squareWidth);
-            LinearGradientBrush lBrushHead = new LinearGradientBrush(rectHead, Color.Red, Color.Yellow, LinearGradientMode.BackwardDiagonal);
-            g.FillRectangle(lBrushHead, rectHead);
+            //LinearGradientBrush lBrushHead = new LinearGradientBrush(rectHead, Color.Red, Color.Yellow, LinearGradientMode.BackwardDiagonal);
+            //g.FillRectangle(lBrushHead, rectHead);
            // Bitmap headImage = (Bitmap)resourceManager.GetObject("head");
             //g.DrawImage(headImage, lefTopHead);
             //Bitmap headImage = global::Snake.Properties.Resources.picture_1506;
@@ -301,8 +303,8 @@ namespace Snake
             //tail
             Point lefTopTail = leftTopRectPosition(snake.tailPosition());
             Rectangle rectTail = new Rectangle(lefTopTail.X, lefTopTail.Y, squareWidth, squareWidth);
-            LinearGradientBrush lBrushTail = new LinearGradientBrush(rectTail, Color.Beige, Color.Yellow, LinearGradientMode.BackwardDiagonal);
-            g.FillRectangle(lBrushTail, rectTail);
+            //LinearGradientBrush lBrushTail = new LinearGradientBrush(rectTail, Color.Beige, Color.Yellow, LinearGradientMode.BackwardDiagonal);
+            //g.FillRectangle(lBrushTail, rectTail);
             Bitmap tailImage = global::Snake.Resources.snake.tail;
             g.DrawImage(tailImage, rectTail);
         }
@@ -315,10 +317,20 @@ namespace Snake
                 Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
                 LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Pink, Color.BlueViolet, LinearGradientMode.BackwardDiagonal);
                 g.FillRectangle(lBrush, rect);
-
+            //    Bitmap fastfoodImage = global::Snake.Resources.snake.fastfood;
+            //    g.DrawImage(fastfoodImage, rectfastfood);
             }
         }
-        
+
+        //private void Form1_Click(object sender, EventArgs e)
+        //{
+        //    Form1 f = new Form1();
+        //    f.Show();
+
+        //    MediaPlayer mp = new MediaPlayer();
+        //    mp.Open(Path.Combine(Application.StartupPath, "Лето 2010.mp3"));
+        //    mp.Play(true);
+        //}
         private Point leftTopRectPosition(Point point)
         {
             Point mappedPoint = new Point(point.X * squareWidth, point.Y * squareWidth);

@@ -60,6 +60,20 @@ namespace Snake.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap _9317588_grass_background_with_flowers_bees_and_butterfly {
+            get {
+                object obj = ResourceManager.GetObject("9317588-grass-background-with-flowers-bees-and-butterfly", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap _9317588_grass_background_with_flowers_bees_and_butterfly1 {
+            get {
+                object obj = ResourceManager.GetObject("9317588-grass-background-with-flowers-bees-and-butterfly1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap grass {
             get {
                 object obj = ResourceManager.GetObject("grass", resourceCulture);
