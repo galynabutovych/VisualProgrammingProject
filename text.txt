@@ -8,4 +8,32 @@ internal static System.Drawing.Bitmap picture_1506 {
 
 
 
+
+
+
 this.BackgroundImage = global::Snake.Properties.Resources.picture_1506;
+
+
+
+
+
+Snake.Resources
+
+
+ internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Snake.Resources.snake", typeof(snake).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+
+
+internal static System.Drawing.Bitmap head {
+            get {
+                object obj = ResourceManager.GetObject("head", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
