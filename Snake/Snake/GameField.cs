@@ -12,7 +12,6 @@ using System.Resources;
 using Snake.Resources;
 using System.Media;
 
-
 namespace Snake
 {
     /// <summary>

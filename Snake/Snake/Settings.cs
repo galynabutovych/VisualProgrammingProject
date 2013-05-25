@@ -11,6 +11,13 @@ namespace Snake
 {
     public partial class Settings : Form
     {
+        //General settings:
+        bool playSound = false;
+        int soundVolume = 0;
+
+        // Per game settings:
+        int speedSetting = 0;
+
         public delegate void SpeedUpdateHandler(SpeedEventArgs e);
         public event SpeedUpdateHandler OnUpdateSpeed;
 
@@ -19,14 +26,26 @@ namespace Snake
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        void loadGeneralSettings()
         {
-
+            playSound = GeneralSettings.Default.Sound;
+            soundVolume = GeneralSettings.Default.Volume;
         }
 
+        private void saveSettings()
+        {
+            // TODO: call this function in the OK button press event handler
+
+            // save general settings:
+            GeneralSettings.Default.Sound = playSound;
+            GeneralSettings.Default.Volume = soundVolume;
+
+            // save game settings:
+        }
 
         private void Low_Click(object sender, EventArgs e)
         {
+            speedSetting = 900;
             SpeedEventArgs args = new SpeedEventArgs(900);
             OnUpdateSpeed(args);
             Hide();
@@ -34,6 +53,7 @@ namespace Snake
 
         private void High_Click(object sender, EventArgs e)
         {
+            speedSetting = 200;
             SpeedEventArgs args = new SpeedEventArgs(200);
             OnUpdateSpeed(args);
             Hide();
@@ -41,6 +61,8 @@ namespace Snake
 
         private void Medium_Click(object sender, EventArgs e)
         {
+            speedSetting = 400;
+            // TODO: emit this event only after user presses OK button
             SpeedEventArgs args = new SpeedEventArgs(400);
             OnUpdateSpeed(args);
             Hide();
