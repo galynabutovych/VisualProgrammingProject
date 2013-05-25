@@ -20,17 +20,13 @@ namespace Snake
     public partial class GameField : UserControl
     {
         //TODO: resize
-        
-        /// Members:
+
+        #region Members & Constructors
         private int squareWidth = 20; /// elementary rectangular cell side width (step width too)
-        private int rowsCount; /// rows count
-        private int columsCount; /// colums count
-       // private int X = 0; /// snake (head) X position.
-       // private int Y = 0; /// snake (head) Y position.
+        private int rowsCount;
+        private int columsCount;
         Snake snake = null;
-        Point oldSnakeHead = new Point();
         Random random = new Random();
-        private List<PictureBox> foodList;
         Dictionary<Point, int> foodByScore = new Dictionary<Point, int>();
         int Score = 0;
         bool isGameOver = false;
@@ -49,106 +45,24 @@ namespace Snake
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-
             rowsCount = rows;
             columsCount = colums;
             squareWidth = cellWidth;
-            //foodList = new List<PictureBox>();
 
             snake = new Snake(rowsCount, columsCount, 0, 0);
+            // REMOVEME:
             snake.growRight();
             snake.growRight();
-            snake.growRight();
-                      
+            snake.growRight();    
         }
+        #endregion
 
-        /// <summary>
-        /// Pauses the game.
-        /// </summary>
-
-        public int score()
-        {
-            return Score;
-        }
-
-        public void pause()
-        {
-            timer.Stop();
-            Invalidate();
-        }
-
-        /// <summary>
-        /// Resumes paused game.
-        /// </summary>
-        public void resume()
-        {
-            timer.Start();
-            Invalidate();                      
-        }
-
-        public bool isRunning()
-        {
-            return timer.Enabled;
-        }
-
-        /// <summary>
-        /// Sets time interval for 1 movement of snake (speed).
-        /// </summary>
-        /// <param name="msec">Miliseconds betweeen 2 updates.</param>
-        public void setTimerInterval(int msec)
-        {
-            timer.Interval = msec;
-        }
-
+        #region Event Handlers
         private void timer_Tick(object sender, EventArgs e)
         {
             snake.direction = requestedDirection;
             moveSnake();
         }
-
-        void moveSnake()
-        {
-            oldSnakeHead = snake.headPosition();
-            if (snake.isSelfCollision())
-            {
-                gameOver();
-                Invalidate();
-                return;
-            }
-            if(!eat())
-            switch (snake.direction)
-            {
-                case Direction.Left:
-                    snake.moveLeft();
-                    break;
-                case Direction.Up:
-                    snake.moveUp();
-                    break;
-                case Direction.Right:
-                    snake.moveRight();
-                    break;
-                case Direction.Down:
-                    snake.moveDown();
-                    break;
-            }
-            if (snake.collidesWithWall())
-            {
-                gameOver();
-                Invalidate();
-                return;
-            }
-            Invalidate();
-        }
-
-        void gameOver()
-        {
-            isGameOver = true;
-            timer.Stop();
-            Invalidate();
-            Score = 0;
-            addScore(0);
-        }
-
         private void GameField_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -157,10 +71,6 @@ namespace Snake
                     if (isRunning() && snake.direction != Direction.Right)
                     {
                         requestedDirection = Direction.Left;
-                        //snake.direction = Direction.Left;
-                        //timer.Enabled = false;
-                        //moveSnake();
-                        //timer.Enabled = true;
                     }
                     break;
 
@@ -168,10 +78,6 @@ namespace Snake
                     if (isRunning() && snake.direction != Direction.Left)
                     {
                         requestedDirection = Direction.Right;
-                        //snake.direction = Direction.Right;
-                        //timer.Enabled = false;
-                        //moveSnake();
-                        //timer.Enabled = true;
                     }
                     break;
 
@@ -179,10 +85,6 @@ namespace Snake
                     if (isRunning() && snake.direction != Direction.Down)
                     {
                         requestedDirection = Direction.Up;
-                        //snake.direction = Direction.Up;
-                        //timer.Enabled = false;
-                        //moveSnake();
-                        //timer.Enabled = true;
                     }
                     break;
 
@@ -190,10 +92,6 @@ namespace Snake
                     if (isRunning() && snake.direction != Direction.Up)
                     {
                         requestedDirection = Direction.Down;
-                        //snake.direction = Direction.Down;
-                        //timer.Enabled = false;
-                        //moveSnake();
-                        //timer.Enabled = true;
                     }
                     break;
 
@@ -201,12 +99,10 @@ namespace Snake
                     return;
             }
         }
-
         private void GameField_Load(object sender, EventArgs e)
         {
             timer.Start();
             createFood();
-
         }
         protected override bool IsInputKey(Keys keyData)
         {
@@ -225,7 +121,9 @@ namespace Snake
                 return false;
             }
         }
+        #endregion
 
+        #region Painting & Sound
         private void GameField_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -240,7 +138,6 @@ namespace Snake
                 paintPause(g);
             }
         }
-
 
         // Visual notification that game is paused
         private void paintPause(Graphics g)
@@ -280,8 +177,6 @@ namespace Snake
                 {
                     Point lefTop = leftTopRectPosition(currentLink);
                     Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
-                    //LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Green, Color.Yellow, LinearGradientMode.BackwardDiagonal);
-                    //g.FillRectangle(lBrush, rect);
                     Bitmap bodyBody = global::Snake.Resources.snake.body;
                     g.DrawImage(bodyBody, rect);
                 }
@@ -290,11 +185,6 @@ namespace Snake
             //head
             Point lefTopHead = leftTopRectPosition(snake.headPosition());
             Rectangle rectHead = new Rectangle(lefTopHead.X, lefTopHead.Y, squareWidth, squareWidth);
-            //LinearGradientBrush lBrushHead = new LinearGradientBrush(rectHead, Color.Red, Color.Yellow, LinearGradientMode.BackwardDiagonal);
-            //g.FillRectangle(lBrushHead, rectHead);
-           // Bitmap headImage = (Bitmap)resourceManager.GetObject("head");
-            //g.DrawImage(headImage, lefTopHead);
-            //Bitmap headImage = global::Snake.Properties.Resources.picture_1506;
             Bitmap headImage = global::Snake.Resources.snake.head;
             g.DrawImage(headImage, rectHead);
 
@@ -302,8 +192,6 @@ namespace Snake
             //tail
             Point lefTopTail = leftTopRectPosition(snake.tailPosition());
             Rectangle rectTail = new Rectangle(lefTopTail.X, lefTopTail.Y, squareWidth, squareWidth);
-            //LinearGradientBrush lBrushTail = new LinearGradientBrush(rectTail, Color.Beige, Color.Yellow, LinearGradientMode.BackwardDiagonal);
-            //g.FillRectangle(lBrushTail, rectTail);
             Bitmap tailImage = global::Snake.Resources.snake.tail;
             g.DrawImage(tailImage, rectTail);
         }
@@ -321,6 +209,12 @@ namespace Snake
             }
         }
 
+        private Point leftTopRectPosition(Point point)
+        {
+            Point mappedPoint = new Point(point.X * squareWidth, point.Y * squareWidth);
+            return mappedPoint;
+        }
+
         //private void Form1_Click(object sender, EventArgs e)
         //{
         //    Form1 f = new Form1();
@@ -330,12 +224,9 @@ namespace Snake
         //    mp.Open(Path.Combine(Application.StartupPath, "Лето 2010.mp3"));
         //    mp.Play(true);
         //}
-        private Point leftTopRectPosition(Point point)
-        {
-            Point mappedPoint = new Point(point.X * squareWidth, point.Y * squareWidth);
-            return mappedPoint;
-        }
+        #endregion
 
+        #region Methods
         public void StartGame()
         {
             isGameOver = false;
@@ -367,26 +258,16 @@ namespace Snake
                     }
                 }
             }
-            //PictureBox food = new System.Windows.Forms.PictureBox();
             Point foodPos = new Point(foodX, foodY);
-            //foodList.Add(food);
             foodByScore.Add(foodPos, 4);
-            //food.Location = leftTopRectPosition(foodPos);
-            //food.Width = squareWidth;
-            //food.Height = squareWidth;
-            //Controls.Add(food);
         }
 
         public bool eat()
         {
-            //Point lItemToRemove = null;
             foreach (Point currentLink in foodByScore.Keys)
             {
                 if (snake.headPosition() == currentLink)
                 {
-                    //lItemToRemove = currentLink;
-                    //Controls.Remove(lItemToRemove);
-                    //foodList.Remove(lItemToRemove);
                     addScore(foodByScore[currentLink]);
                     foodByScore.Remove(currentLink);
                     snake.grow();
@@ -395,17 +276,6 @@ namespace Snake
                     return true;                    
                 }
             }
-            //if (lItemToRemove != null)
-            //{
-            //    Controls.Remove(lItemToRemove);
-            //    foodList.Remove(lItemToRemove);
-            //    Invalidate();
-            //    snake.grow();
-            //    createFood();
-            //    addScore(5);
-                
-            //    return true;
-            //}
             return false;
         }
 
@@ -415,7 +285,106 @@ namespace Snake
             ScoreEventArgs args = new ScoreEventArgs(Score);
             OnUpdateScore(args);
         }
+
+        void moveSnake()
+        {
+            if (snake.isSelfCollision())
+            {
+                gameOver();
+                Invalidate();
+                return;
+            }
+            if (!eat())
+                switch (snake.direction)
+                {
+                    case Direction.Left:
+                        snake.moveLeft();
+                        break;
+                    case Direction.Up:
+                        snake.moveUp();
+                        break;
+                    case Direction.Right:
+                        snake.moveRight();
+                        break;
+                    case Direction.Down:
+                        snake.moveDown();
+                        break;
+                }
+            if (snake.collidesWithWall())
+            {
+                gameOver();
+                Invalidate();
+                return;
+            }
+            Invalidate();
+        }
+
+        void gameOver()
+        {
+            isGameOver = true;
+            timer.Stop();
+            Invalidate();
+            Score = 0;
+            addScore(0);
+        }
+
+        /// <summary>
+        /// Sets time interval for 1 movement of snake (speed).
+        /// </summary>
+        /// <param name="msec">Miliseconds betweeen 2 updates.</param>
+        public void setTimerInterval(int msec)
+        {
+            timer.Interval = msec;
+        }
+
+        private void loadSettings(GameSettings lSettings)
+        {
+            rowsCount = lSettings.RowsCount;
+            columsCount = lSettings.ColumsCount;
+            requestedDirection = lSettings.RequestedDirection;
+            snake = new Snake(rowsCount, columsCount, lSettings.SnakeBody);
+            snake.direction = lSettings.SnakeDirection;
+            setTimerInterval(lSettings.Speed);
+            Score = lSettings.Score;
+        }
+
+        public GameSettings getSettings()
+        {
+            GameSettings rSettings = new GameSettings();
+            return rSettings;
+        }
+
+        public int score()
+        {
+            return Score;
+        }
+
+        /// <summary>
+        /// Pauses the game.
+        /// </summary>
+        public void pause()
+        {
+            timer.Stop();
+            Invalidate();
+        }
+
+        /// <summary>
+        /// Resumes paused game.
+        /// </summary>
+        public void resume()
+        {
+            timer.Start();
+            Invalidate();
+        }
+
+        public bool isRunning()
+        {
+            return timer.Enabled;
+        }
+
+        #endregion
     }
+/***********************************************************************************************************************************************/
         public class ScoreEventArgs : EventArgs
         {
             public int Score { get; private set; }
@@ -426,8 +395,4 @@ namespace Snake
                     Score = score;
             }
         }
-
-
-      
-    
 }

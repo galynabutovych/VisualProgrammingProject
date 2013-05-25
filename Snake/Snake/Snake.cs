@@ -8,7 +8,7 @@ namespace Snake
 {
     class Snake
     {
-         /// Members:
+        #region Members & Constructors
         public Direction direction = Direction.Right; /// snake direction
         int XConstraint;
         int YConstraint;
@@ -25,10 +25,11 @@ namespace Snake
             YConstraint = rows;
         }
 
-        public Snake(int rows, int colums, List<Point> initialBody)
+        public Snake(int rows, int colums, LinkedList<Point> initialBody)
         {
             body = new LinkedList<Point>(initialBody);
         }
+        #endregion
 
         private void updateHead(Point newHead)
         {

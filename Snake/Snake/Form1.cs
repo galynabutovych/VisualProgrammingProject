@@ -7,23 +7,14 @@ namespace Snake
 {
     public partial class Form1 : Form
     {
-        /// <summary>
-        /// Game field.
-        /// </summary>
+        #region Variables & Constructors
         GameField gameField = null;
         Settings settings = null;
-        /// <summary>
-        /// Settings control.
-        /// </summary>
-
 
         public Form1()
         {
             InitializeComponent();
             gameField = new GameField(20, 20, 20);
-            // TODO: set correct geometry
-            //gameField.Width = this.ClientRectangle.Width;
-            //gameField.Height = this.ClientRectangle.Height;
             gameField.Width = 20 * 20;
             gameField.Height = 20 * 20;
             gameField.OnUpdateScore +=new GameField.ScoreUpdateHandler(onScoreChanged);
@@ -31,20 +22,11 @@ namespace Snake
             this.KeyPreview = true;
             
             this.Controls.Add(gameField);
-            //SizeFromClientSize(gameField.Size + menuStrip1.Size);
-
             ClientSize =new Size(gameField.Size.Width, gameField.Size.Height + menuStrip1.Size.Height + statusStrip1.Size.Height);    
         }
+        #endregion
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-        }
-       
-       
+        #region Methods
         public void pauseFromGameField()     // call pause from gamefield
         {
             gameField.pause();
@@ -58,16 +40,10 @@ namespace Snake
                 toolStripMenuItem2.Visible = false;
                 pauseToolStripMenuItem.Visible = true;
         }
+        #endregion
 
-        //about
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            pauseFromGameField();
-            About about = new About();
-            about.Show();
-        }
-
-          // key down event handler
+        #region Event Handlers
+        // key down event handler
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -102,6 +78,30 @@ namespace Snake
             }
         }
 
+        void speedChanged(SpeedEventArgs e)
+        {
+            if (gameField != null)
+            {
+                gameField.setTimerInterval(e.Speed);
+            }
+        }
+
+        void onScoreChanged(ScoreEventArgs e)
+        {
+            this.ScoreCounterLabel.Text = e.Score.ToString();
+        }
+
+        #endregion
+
+        #region Menu
+        //about
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pauseFromGameField();
+            About about = new About();
+            about.Show();
+        }
+
         private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
              {
                  pauseFromGameField();
@@ -115,26 +115,21 @@ namespace Snake
         private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             pauseFromGameField();
-            DialogResult result = MessageBox.Show("Are you sure you want to start new game?", "New game", MessageBoxButtons.YesNo);
-
-            if (result == DialogResult.Yes)
+            DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNoCancel);
+            if (resultsave == DialogResult.Yes)
             {
-
-                DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
-                if (resultsave == DialogResult.Yes)
-                {
-                    // save game
-                   gameField.StartGame(); //new game
-                }
-                else
-                {
-                   resumeFromGameField();
-                   
-                    gameField.StartGame(); //new game;
-                }
+                // save game
+                gameField.StartGame(); //new game;
             }
-
-        
+            else if (resultsave == DialogResult.No)
+            {
+                resumeFromGameField();
+                gameField.StartGame(); //new game;
+            }
+            else
+            {
+                resumeFromGameField();
+            }
         }
 
         // exit
@@ -169,19 +164,7 @@ namespace Snake
             settings.Show();
             resumeFromGameField();
         }
-
-        void speedChanged(SpeedEventArgs e)
-        {
-            if (gameField != null)
-            {
-                gameField.setTimerInterval(e.Speed);
-            }
-        }
-
-        void onScoreChanged(ScoreEventArgs e)
-        {
-            this.ScoreCounterLabel.Text = e.Score.ToString();
-        }
+        #endregion
 
    }
 }
