@@ -114,8 +114,8 @@ namespace Snake
                 defaultSettings.Score = 0;
                 defaultSettings.SnakeDirection = Direction.Right;
                 defaultSettings.RequestedDirection = Direction.Right;
-                defaultSettings.RowsCount = 50;
-                defaultSettings.ColumsCount = 50;
+                defaultSettings.RowsCount = 20;
+                defaultSettings.ColumsCount = 20;
                 List<Point>  body = new List<Point>();
                 body.Add(new Point(2, 0));
                 body.Add(new Point(1, 0));

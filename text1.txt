@@ -1,0 +1,11 @@
+internal static System.Drawing.Bitmap picture_1506 {
+            get {
+                object obj = ResourceManager.GetObject("picture-1506", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+
+
+
+this.BackgroundImage = global::Snake.Properties.Resources.picture_1506;
