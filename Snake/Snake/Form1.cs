@@ -173,7 +173,6 @@ namespace Snake
             if (lSaveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 StorageManager.storageInstance.storeGame(gameField.getSettings(), lSaveDialog.FileName);
-                MessageBox.Show(lSaveDialog.FileName);
             }
         }
 
@@ -184,7 +183,6 @@ namespace Snake
             lOpenDialog.Filter = "Xml Files|*.xml;";
             if (lOpenDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                MessageBox.Show(lOpenDialog.FileName);
                 GameSettings lLoadedGame = StorageManager.storageInstance.loadGame(lOpenDialog.FileName);
                 if(lLoadedGame != null)
                 {
