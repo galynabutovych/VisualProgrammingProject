@@ -227,14 +227,10 @@ namespace Snake
         #endregion
 
         #region Methods
-        public void StartGame()
+        public void StartGame(GameSettings pGameSettings)
         {
             isGameOver = false;
-            snake = new Snake(rowsCount, columsCount, 0, 0);
-            requestedDirection = snake.direction;
-            snake.growRight();
-            snake.growRight();
-            snake.growRight();
+            loadSettings(pGameSettings);
             timer.Start();
             Invalidate();
         }
@@ -342,7 +338,7 @@ namespace Snake
             rowsCount = lSettings.RowsCount;
             columsCount = lSettings.ColumsCount;
             requestedDirection = lSettings.RequestedDirection;
-            snake = new Snake(rowsCount, columsCount, lSettings.SnakeBody);
+            snake = new Snake(rowsCount, columsCount, new LinkedList<Point>(lSettings.SnakeBody));
             snake.direction = lSettings.SnakeDirection;
             setTimerInterval(lSettings.Speed);
             Score = lSettings.Score;
@@ -351,6 +347,13 @@ namespace Snake
         public GameSettings getSettings()
         {
             GameSettings rSettings = new GameSettings();
+            rSettings.RowsCount = rowsCount;
+            rSettings.ColumsCount = columsCount;
+            rSettings.Score = Score;
+            rSettings.Speed = timer.Interval;
+            rSettings.SnakeDirection = snake.direction;
+            rSettings.RequestedDirection = requestedDirection;
+            rSettings.SnakeBody = snake.getBody();
             return rSettings;
         }
 

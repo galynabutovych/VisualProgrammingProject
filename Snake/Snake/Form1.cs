@@ -119,12 +119,12 @@ namespace Snake
             if (resultsave == DialogResult.Yes)
             {
                 // save game
-                gameField.StartGame(); //new game;
+                gameField.StartGame(GameSettings.Default); //new game;
             }
             else if (resultsave == DialogResult.No)
             {
                 resumeFromGameField();
-                gameField.StartGame(); //new game;
+                gameField.StartGame(GameSettings.Default); //new game;
             }
             else
             {
@@ -163,6 +163,36 @@ namespace Snake
             }
             settings.Show();
             resumeFromGameField();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog lSaveDialog = new SaveFileDialog();
+            lSaveDialog.Title = "Save game";
+            lSaveDialog.OverwritePrompt = true;
+            if (lSaveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                StorageManager.storageInstance.storeGame(gameField.getSettings(), lSaveDialog.FileName);
+                MessageBox.Show(lSaveDialog.FileName);
+            }
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog lOpenDialog = new OpenFileDialog();
+            lOpenDialog.Title = "Load game";
+            lOpenDialog.Filter = "Xml Files|*.xml;";
+            if (lOpenDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                MessageBox.Show(lOpenDialog.FileName);
+                GameSettings lLoadedGame = StorageManager.storageInstance.loadGame(lOpenDialog.FileName);
+                if(lLoadedGame != null)
+                {
+                    // pass it to gamefield (create new game)
+                    gameField.StartGame(lLoadedGame);
+                }
+            }
+            
         }
         #endregion
 

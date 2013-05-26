@@ -12,6 +12,7 @@ namespace Snake
     {
         #region Variables & Constructors
 
+        string user = "";
         private int rowsCount;
         private int columsCount;
         private int score = 0;
@@ -20,12 +21,20 @@ namespace Snake
         // snake shape, speed and direction:
         private Direction requestedDirection = Direction.Right;
         private Direction snakeDirection = Direction.Right;
-        private LinkedList<Point> snakeBody;
+        private List<Point> snakeBody;
         private int speed = 900;
         public GameSettings() { }
         #endregion
 
         #region Properties, setters and getters
+        public string User
+        {
+            set
+            {
+                user = value;
+            }
+            get { return user; }
+        }
         public int RowsCount
         {
             set
@@ -59,7 +68,7 @@ namespace Snake
             }
             get { return score; }
         }
-        public LinkedList<Point> SnakeBody
+        public List<Point> SnakeBody
         {
             set
             {
@@ -92,6 +101,29 @@ namespace Snake
             get { return speed; }
         }            
 
+        #endregion
+
+        #region Default
+        public static GameSettings Default
+        {
+            get
+            {
+                GameSettings defaultSettings = new GameSettings();
+                defaultSettings.User = "";
+                defaultSettings.Speed = 500;
+                defaultSettings.Score = 0;
+                defaultSettings.SnakeDirection = Direction.Right;
+                defaultSettings.RequestedDirection = Direction.Right;
+                defaultSettings.RowsCount = 50;
+                defaultSettings.ColumsCount = 50;
+                List<Point>  body = new List<Point>();
+                body.Add(new Point(2, 0));
+                body.Add(new Point(1, 0));
+                body.Add(new Point(0, 0));
+                defaultSettings.snakeBody = body;
+                return defaultSettings;
+            }
+        }
         #endregion
     }
 }

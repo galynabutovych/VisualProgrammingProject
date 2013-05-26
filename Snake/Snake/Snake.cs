@@ -27,6 +27,8 @@ namespace Snake
 
         public Snake(int rows, int colums, LinkedList<Point> initialBody)
         {
+            XConstraint = colums;
+            YConstraint = rows;
             body = new LinkedList<Point>(initialBody);
         }
         #endregion
