@@ -28,6 +28,7 @@ namespace Snake
         Snake snake = null;
         Random random = new Random();
         Dictionary<Point, int> foodByScore = new Dictionary<Point, int>();
+        Dictionary<Point, int> bonusByScore = new Dictionary<Point, int>();
         int Score = 0;
         bool isGameOver = false;
         public delegate void ScoreUpdateHandler(ScoreEventArgs e);
@@ -103,6 +104,8 @@ namespace Snake
         {
             timer.Start();
             createFood();
+           
+
         }
         protected override bool IsInputKey(Keys keyData)
         {
@@ -128,6 +131,7 @@ namespace Snake
         {
             Graphics g = e.Graphics;
             paintFood(g);
+            paintBonus(g);
             paintSnake(g);
             if (isGameOver)
             {
@@ -208,6 +212,19 @@ namespace Snake
             //    g.DrawImage(fastfoodImage, rectfastfood);
             }
         }
+       
+        private void paintBonus(Graphics g)
+        {
+            foreach (Point currentLink in bonusByScore.Keys)
+            {
+                Point lefTop = leftTopRectPosition(currentLink);
+                Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
+                LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Black, Color.White, LinearGradientMode.BackwardDiagonal);
+                g.FillRectangle(lBrush, rect);
+                //    Bitmap fastfoodImage = global::Snake.Resources.snake.fastfood;
+                //    g.DrawImage(fastfoodImage, rectfastfood);
+            }
+        }
 
         private Point leftTopRectPosition(Point point)
         {
@@ -256,6 +273,35 @@ namespace Snake
             }
             Point foodPos = new Point(foodX, foodY);
             foodByScore.Add(foodPos, 4);
+            
+        }
+
+        public void createBonus()
+        {
+            if (bonusByScore.Count != 1)
+            {
+                bool accept = false;
+                int bonusX = 0;
+                int bonusY = 0;
+                while (!accept)
+                {
+                    bonusX = random.Next(0, columsCount);
+                    bonusY = random.Next(0, rowsCount);
+                    accept = true;
+                    List<Point> snakeBody = snake.getBody();
+                    foreach (Point currentLink in snakeBody)
+                    {
+                        if (bonusX == currentLink.X && bonusY == currentLink.Y)
+                        {
+                            accept = false;
+                        }
+                    }
+                }
+
+
+                Point BonusPos = new Point(bonusX, bonusY);
+                bonusByScore.Add(BonusPos, 4);
+            }
         }
 
         public bool eat()
@@ -267,9 +313,25 @@ namespace Snake
                     addScore(foodByScore[currentLink]);
                     foodByScore.Remove(currentLink);
                     snake.grow();
-                    createFood();                    
+                    createFood();                                           
                     Invalidate();
                     return true;                    
+                }
+            }
+            return false;
+        }
+
+        public bool eatBonus()
+        {
+            foreach (Point currentLink in bonusByScore.Keys)
+            {
+                if (snake.headPosition() == currentLink)
+                {
+                    addScore(bonusByScore[currentLink]);
+                    bonusByScore.Remove(currentLink);
+                    snake.grow();
+                    Invalidate();
+                    return true;
                 }
             }
             return false;
@@ -290,7 +352,7 @@ namespace Snake
                 Invalidate();
                 return;
             }
-            if (!eat())
+            if (!eat() && !eatBonus()) 
                 switch (snake.direction)
                 {
                     case Direction.Left:
@@ -312,6 +374,8 @@ namespace Snake
                 Invalidate();
                 return;
             }
+
+            if ((Score % 16) == 0 && Score != 0) createBonus();
             Invalidate();
         }
 
