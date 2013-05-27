@@ -225,6 +225,13 @@ namespace Snake
             return collides;
         }
 
+        public bool CollisionWithBarriers()
+        {
+            bool collides = false;
+
+        }
+
+
         public bool isSelfCollision()
         {
             bool collides = false;

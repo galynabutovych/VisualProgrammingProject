@@ -29,6 +29,7 @@ namespace Snake
         Random random = new Random();
         Dictionary<Point, int> foodByScore = new Dictionary<Point, int>();
         Dictionary<Point, int> bonusByScore = new Dictionary<Point, int>();
+        List<Point> barriers = new List<Point>();
         int Score = 0;
         bool isGameOver = false;
         public delegate void ScoreUpdateHandler(ScoreEventArgs e);
@@ -104,7 +105,7 @@ namespace Snake
         {
             timer.Start();
             createFood();
-           
+            createBarriers();
 
         }
         protected override bool IsInputKey(Keys keyData)
@@ -132,6 +133,7 @@ namespace Snake
             Graphics g = e.Graphics;
             paintFood(g);
             paintBonus(g);
+            paintBarriers(g);
             paintSnake(g);
             if (isGameOver)
             {
@@ -226,6 +228,18 @@ namespace Snake
             }
         }
 
+        void paintBarriers(Graphics g)
+        {
+            foreach (Point currentLink in barriers)
+            {
+                Point lefTop = leftTopRectPosition(currentLink);
+                Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
+                LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Black, Color.Red, LinearGradientMode.BackwardDiagonal);
+                g.FillRectangle(lBrush, rect);
+            }
+        }
+
+
         private Point leftTopRectPosition(Point point)
         {
             Point mappedPoint = new Point(point.X * squareWidth, point.Y * squareWidth);
@@ -304,6 +318,29 @@ namespace Snake
             }
         }
 
+        void createBarriers()
+        {
+            int barrierX = random.Next(0, columsCount);
+            int barrierY = random.Next(0, rowsCount);
+            List<Point> snakeBody = snake.getBody();
+            foreach (Point currentLink in snakeBody)
+            {
+                if (barrierX == currentLink.X && barrierY == currentLink.Y)
+                {
+                    createBarriers();
+                    return;
+                }
+            }
+            Point lNew = new Point(barrierX, barrierY);
+            barriers.Add(lNew);
+            Point lNew1 = new Point(barrierX + 1, barrierY);
+            barriers.Add(lNew1);
+            Point lNew2 = new Point(barrierX - 1, barrierY);
+            barriers.Add(lNew2);
+            Point lNew3 = new Point(barrierX - 2, barrierY);
+            barriers.Add(lNew3);
+        }
+
         public bool eat()
         {
             foreach (Point currentLink in foodByScore.Keys)
@@ -337,6 +374,7 @@ namespace Snake
             return false;
         }
 
+      
         private void addScore(int pScore)
         {
             Score += pScore;
@@ -352,6 +390,8 @@ namespace Snake
                 Invalidate();
                 return;
             }
+
+           
             if (!eat() && !eatBonus()) 
                 switch (snake.direction)
                 {
