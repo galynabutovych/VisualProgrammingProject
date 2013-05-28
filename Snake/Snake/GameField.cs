@@ -460,8 +460,6 @@ namespace Snake
             isGameOver = true;
             timer.Stop();
             Invalidate();
-            Score = 0;
-            addScore(0);
         }
 
         /// <summary>
@@ -527,10 +525,6 @@ namespace Snake
 
         #endregion
 
-
-
-
-
         private void timerOfBonus_Tick_1(object sender, EventArgs e)
         {
             timerOfBonus.Stop();
@@ -551,5 +545,4 @@ namespace Snake
                 Score = score;
         }
     }
-
 }
