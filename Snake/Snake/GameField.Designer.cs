@@ -30,12 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.timerOfBonus = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timer
             // 
             this.timer.Interval = 500;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // timerOfBonus
+            // 
+            this.timerOfBonus.Interval = 3000;
+            this.timerOfBonus.Tick += new System.EventHandler(this.timerOfBonus_Tick_1);
             // 
             // GameField
             // 
@@ -57,5 +63,6 @@
         #endregion
 
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Timer timerOfBonus;
     }
 }

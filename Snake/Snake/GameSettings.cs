@@ -117,6 +117,7 @@ namespace Snake
                 defaultSettings.RowsCount = 20;
                 defaultSettings.ColumsCount = 20;
                 List<Point>  body = new List<Point>();
+                body.Add(new Point(3, 0));
                 body.Add(new Point(2, 0));
                 body.Add(new Point(1, 0));
                 body.Add(new Point(0, 0));

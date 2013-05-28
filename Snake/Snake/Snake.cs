@@ -44,6 +44,15 @@ namespace Snake
             body.RemoveLast();
         }
 
+        public void cutTail(int a)
+        {
+            if (body.Count > a + 2)
+                for (int i = 0; i < a; i++)
+                {
+                    body.RemoveLast();
+                }
+        }
+
         public void growLeft()
         {
             Point head = headPosition();
@@ -228,6 +237,7 @@ namespace Snake
         public bool CollisionWithBarriers()
         {
             bool collides = false;
+            return collides;
 
         }
 

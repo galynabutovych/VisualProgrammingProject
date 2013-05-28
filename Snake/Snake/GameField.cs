@@ -28,7 +28,7 @@ namespace Snake
         Snake snake = null;
         Random random = new Random();
         Dictionary<Point, int> foodByScore = new Dictionary<Point, int>();
-        Dictionary<Point, int> bonusByScore = new Dictionary<Point, int>();
+        Dictionary<Point, int> bonusByType = new Dictionary<Point, int>();
         List<Point> barriers = new List<Point>();
         int Score = 0;
         bool isGameOver = false;
@@ -55,7 +55,7 @@ namespace Snake
             // REMOVEME:
             snake.growRight();
             snake.growRight();
-            snake.growRight();    
+            snake.growRight();
         }
         #endregion
 
@@ -97,7 +97,7 @@ namespace Snake
                     }
                     break;
 
-               default:
+                default:
                     return;
             }
         }
@@ -210,18 +210,34 @@ namespace Snake
                 Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
                 LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Pink, Color.BlueViolet, LinearGradientMode.BackwardDiagonal);
                 g.FillRectangle(lBrush, rect);
-            //    Bitmap fastfoodImage = global::Snake.Resources.snake.fastfood;
-            //    g.DrawImage(fastfoodImage, rectfastfood);
+                //    Bitmap fastfoodImage = global::Snake.Resources.snake.fastfood;
+                //    g.DrawImage(fastfoodImage, rectfastfood);
             }
         }
-       
+
         private void paintBonus(Graphics g)
         {
-            foreach (Point currentLink in bonusByScore.Keys)
+            foreach (Point currentLink in bonusByType.Keys)
             {
                 Point lefTop = leftTopRectPosition(currentLink);
                 Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
                 LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Black, Color.White, LinearGradientMode.BackwardDiagonal);
+                switch (bonusByType[currentLink])
+                {
+                    case 1:
+                        lBrush = new LinearGradientBrush(rect, Color.Red, Color.Red, LinearGradientMode.BackwardDiagonal);
+                        break;
+                    case 2:
+                        lBrush = new LinearGradientBrush(rect, Color.White, Color.White, LinearGradientMode.BackwardDiagonal);
+                        break;
+                    case 3:
+                        lBrush = new LinearGradientBrush(rect, Color.Black, Color.Black, LinearGradientMode.BackwardDiagonal);
+                        break;
+                    case 4:
+                        lBrush = new LinearGradientBrush(rect, Color.Blue, Color.Blue, LinearGradientMode.BackwardDiagonal);
+                        break;
+                }
+
                 g.FillRectangle(lBrush, rect);
                 //    Bitmap fastfoodImage = global::Snake.Resources.snake.fastfood;
                 //    g.DrawImage(fastfoodImage, rectfastfood);
@@ -265,7 +281,7 @@ namespace Snake
             timer.Start();
             Invalidate();
         }
-         
+
         public void createFood()
         {
             bool accept = false;
@@ -287,13 +303,16 @@ namespace Snake
             }
             Point foodPos = new Point(foodX, foodY);
             foodByScore.Add(foodPos, 4);
-            
+
         }
 
         public void createBonus()
         {
-            if (bonusByScore.Count != 1)
+
+            if (bonusByType.Count != 1)
             {
+
+                timerOfBonus.Start();
                 bool accept = false;
                 int bonusX = 0;
                 int bonusY = 0;
@@ -312,9 +331,9 @@ namespace Snake
                     }
                 }
 
-
                 Point BonusPos = new Point(bonusX, bonusY);
-                bonusByScore.Add(BonusPos, 4);
+                int type = random.Next(1, 4);
+                bonusByType.Add(BonusPos, type);
             }
         }
 
@@ -350,23 +369,7 @@ namespace Snake
                     addScore(foodByScore[currentLink]);
                     foodByScore.Remove(currentLink);
                     snake.grow();
-                    createFood();                                           
-                    Invalidate();
-                    return true;                    
-                }
-            }
-            return false;
-        }
-
-        public bool eatBonus()
-        {
-            foreach (Point currentLink in bonusByScore.Keys)
-            {
-                if (snake.headPosition() == currentLink)
-                {
-                    addScore(bonusByScore[currentLink]);
-                    bonusByScore.Remove(currentLink);
-                    snake.grow();
+                    createFood();
                     Invalidate();
                     return true;
                 }
@@ -374,12 +377,46 @@ namespace Snake
             return false;
         }
 
-      
+        public bool eatBonus()
+        {
+
+            foreach (Point currentLink in bonusByType.Keys)
+            {
+                if (snake.headPosition() == currentLink)
+                {
+                    //timerOfBonus.Stop();
+                    switch (bonusByType[currentLink])
+                    {
+                        case 1:
+                            addScore(100);
+                            break;
+                        case 2:
+                            addScore(-score());
+                            break;
+                        case 3:
+                            gameOver();
+                            break;
+                        case 4:
+                            snake.cutTail(5);
+                            break;
+                            
+                    }
+
+                    bonusByType.Remove(currentLink);
+                    Invalidate();
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void addScore(int pScore)
         {
             Score += pScore;
             ScoreEventArgs args = new ScoreEventArgs(Score);
             OnUpdateScore(args);
+            if ((Score % 16) == 0 && Score != 0)
+                createBonus();
         }
 
         void moveSnake()
@@ -390,9 +427,7 @@ namespace Snake
                 Invalidate();
                 return;
             }
-
-           
-            if (!eat() && !eatBonus()) 
+            if (!eat() && !eatBonus())
                 switch (snake.direction)
                 {
                     case Direction.Left:
@@ -415,7 +450,8 @@ namespace Snake
                 return;
             }
 
-            if ((Score % 16) == 0 && Score != 0) createBonus();
+            //if ((Score % 16) == 0 && Score != 0) 
+            //    createBonus();
             Invalidate();
         }
 
@@ -490,16 +526,30 @@ namespace Snake
         }
 
         #endregion
-    }
-/***********************************************************************************************************************************************/
-        public class ScoreEventArgs : EventArgs
-        {
-            public int Score { get; private set; }
 
-            public ScoreEventArgs(int score)
-            {
-                if (score > 0)
-                    Score = score;
-            }
+
+
+
+
+        private void timerOfBonus_Tick_1(object sender, EventArgs e)
+        {
+            timerOfBonus.Stop();
+            bonusByType.Clear();
+            Invalidate();
         }
+
+    }
+
+    /***********************************************************************************************************************************************/
+    public class ScoreEventArgs : EventArgs
+    {
+        public int Score { get; private set; }
+
+        public ScoreEventArgs(int score)
+        {
+            if (score > 0)
+                Score = score;
+        }
+    }
+
 }
