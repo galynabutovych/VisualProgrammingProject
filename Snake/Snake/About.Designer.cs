@@ -48,6 +48,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 130);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "About";
             this.Text = "About";
             this.Load += new System.EventHandler(this.About_Load);

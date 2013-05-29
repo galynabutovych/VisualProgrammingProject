@@ -97,6 +97,19 @@ namespace Snake
             Hide();
         }
 
+        private void Sound_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Sound.Checked == true)
+                Sound.Text = "Sound on";
+            else Sound.Text = "Sound off";
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            trackBar1.Minimum = 0;
+            trackBar1.Maximum = 2;
+        }
+
 
     }
         

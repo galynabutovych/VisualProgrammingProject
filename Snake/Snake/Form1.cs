@@ -97,7 +97,6 @@ namespace Snake
         //about
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pauseFromGameField();
             About about = new About();
             about.Show();
         }
@@ -126,10 +125,7 @@ namespace Snake
                 resumeFromGameField();
                 gameField.StartGame(GameSettings.Default); //new game;
             }
-            else
-            {
-                resumeFromGameField();
-            }
+
         }
 
         // exit
@@ -193,6 +189,17 @@ namespace Snake
             
         }
         #endregion
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            pauseFromGameField();
+            Invalidate();
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pauseFromGameField();
+        }
 
      
   }
