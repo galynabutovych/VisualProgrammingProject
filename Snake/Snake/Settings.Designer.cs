@@ -112,11 +112,13 @@
             // 
             // trackBar1
             // 
+            this.trackBar1.LargeChange = 1;
             this.trackBar1.Location = new System.Drawing.Point(145, 131);
             this.trackBar1.Maximum = 2;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(124, 45);
             this.trackBar1.TabIndex = 7;
+            this.trackBar1.Value = 2;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // Sound
@@ -126,7 +128,7 @@
             this.Sound.Name = "Sound";
             this.Sound.Size = new System.Drawing.Size(72, 17);
             this.Sound.TabIndex = 8;
-            this.Sound.Text = "Sound off";
+            this.Sound.Text = "Sound on";
             this.Sound.UseVisualStyleBackColor = true;
             this.Sound.CheckedChanged += new System.EventHandler(this.Sound_CheckedChanged);
             // 

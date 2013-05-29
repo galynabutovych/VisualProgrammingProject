@@ -12,8 +12,8 @@ namespace Snake
     public partial class Settings : Form
     {
         //General settings:
-        bool playSound = false;
-        int soundVolume = 0;
+        bool playSound = true;
+        int soundVolume = 100;
 
         // Per game settings:
         int speedSetting = 0;
@@ -93,21 +93,38 @@ namespace Snake
             OnUpdateSpeed(args);
             Hide();
             }
-
+                    
             Hide();
         }
 
         private void Sound_CheckedChanged(object sender, EventArgs e)
         {
+            Sound.Text = "Sound on";
+            
             if (Sound.Checked == true)
-                Sound.Text = "Sound on";
-            else Sound.Text = "Sound off";
+            {
+                Sound.Text = "Sound off";
+                playSound = false;
+                trackBar1.Value = 0;
+            }
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            trackBar1.Minimum = 0;
-            trackBar1.Maximum = 2;
+            
+            if (trackBar1.Value == 1)
+            {
+                soundVolume = 50;
+                Sound.Checked = false;
+            }
+
+            else if (trackBar1.Value == 0)
+            {
+                Sound.Checked = true;
+
+            }
+
+
         }
 
 
