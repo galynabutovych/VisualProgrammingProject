@@ -32,6 +32,8 @@
             this.Medium = new System.Windows.Forms.Button();
             this.High = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.Cancel = new System.Windows.Forms.Button();
+            this.Ok = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Low
@@ -74,11 +76,34 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Game speed";
             // 
+            // Cancel
+            // 
+            this.Cancel.Location = new System.Drawing.Point(194, 110);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(55, 23);
+            this.Cancel.TabIndex = 4;
+            this.Cancel.Text = "Cancel";
+            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+            // 
+            // Ok
+            // 
+            this.Ok.Location = new System.Drawing.Point(133, 110);
+            this.Ok.Name = "Ok";
+            this.Ok.Size = new System.Drawing.Size(55, 23);
+            this.Ok.TabIndex = 5;
+            this.Ok.Text = "Ok";
+            this.Ok.UseVisualStyleBackColor = true;
+            this.Ok.Click += new System.EventHandler(this.Ok_Click);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(289, 119);
+            this.ClientSize = new System.Drawing.Size(279, 152);
+            this.ControlBox = false;
+            this.Controls.Add(this.Ok);
+            this.Controls.Add(this.Cancel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.High);
             this.Controls.Add(this.Medium);
@@ -96,5 +121,7 @@
         private System.Windows.Forms.Button Medium;
         private System.Windows.Forms.Button High;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button Cancel;
+        private System.Windows.Forms.Button Ok;
     }
 }

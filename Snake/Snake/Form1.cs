@@ -162,7 +162,7 @@ namespace Snake
                 settings.TopMost = true;
             }
             settings.Show();
-            resumeFromGameField();
+           // resumeFromGameField();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

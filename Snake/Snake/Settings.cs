@@ -46,27 +46,58 @@ namespace Snake
         private void Low_Click(object sender, EventArgs e)
         {
             speedSetting = 900;
-            SpeedEventArgs args = new SpeedEventArgs(900);
-            OnUpdateSpeed(args);
-            Hide();
-        }
+            //SpeedEventArgs args = new SpeedEventArgs(900);
+            //OnUpdateSpeed(args);
+            
+         }
 
         private void High_Click(object sender, EventArgs e)
         {
             speedSetting = 200;
-            SpeedEventArgs args = new SpeedEventArgs(200);
-            OnUpdateSpeed(args);
-            Hide();
+            //SpeedEventArgs args = new SpeedEventArgs(200);
+            //OnUpdateSpeed(args);
+           
         }
 
         private void Medium_Click(object sender, EventArgs e)
         {
             speedSetting = 400;
             // TODO: emit this event only after user presses OK button
-            SpeedEventArgs args = new SpeedEventArgs(400);
-            OnUpdateSpeed(args);
+            //SpeedEventArgs args = new SpeedEventArgs(400);
+            //OnUpdateSpeed(args);
+            
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
             Hide();
         }
+
+        private void Ok_Click(object sender, EventArgs e)
+        {
+            if( speedSetting == 400)
+            {
+            SpeedEventArgs args = new SpeedEventArgs(400);
+            OnUpdateSpeed(args);
+                Hide();
+            }
+            else if (speedSetting == 200)
+            {
+            SpeedEventArgs args = new SpeedEventArgs(200);
+            OnUpdateSpeed(args);
+                Hide();
+            }
+            else if (speedSetting == 900)
+            {
+            SpeedEventArgs args = new SpeedEventArgs(900);
+            OnUpdateSpeed(args);
+            Hide();
+            }
+
+            Hide();
+        }
+
+
     }
         
 public class SpeedEventArgs : EventArgs
