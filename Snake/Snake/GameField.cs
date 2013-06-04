@@ -485,6 +485,19 @@ namespace Snake
                 Invalidate();
                 return;
             }
+            if (snake.collidesWithWall())
+            {
+                gameOver();
+                Invalidate();
+                return;
+            }
+            if (barriersCrash())
+            {
+
+                gameOver();
+                Invalidate();
+                return;
+            }
             if (!eat() && !eatBonus())
                 switch (snake.direction)
                 {
@@ -501,22 +514,6 @@ namespace Snake
                         snake.moveDown();
                         break;
                 }
-            if (snake.collidesWithWall())
-            {
-                gameOver();
-                Invalidate();
-                return;
-            }
-            if (barriersCrash())
-            {
-
-                gameOver();
-                Invalidate();
-                return;
-            }
-
-            //if ((Score % 16) == 0 && Score != 0) 
-            //    createBonus();
             Invalidate();
         }
 
