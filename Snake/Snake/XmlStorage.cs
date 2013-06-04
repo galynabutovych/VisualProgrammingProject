@@ -67,7 +67,15 @@ namespace Snake
                 chunk.InnerText = lPointConverter.ConvertToString(currentChunk);
                 snake.AppendChild(chunk);
             }
+            XmlNode barriers = doc.CreateElement("barriers");
+            foreach (System.Drawing.Point currentChunk in lGame.Barriers)
+            {
+                XmlNode chunk = doc.CreateElement("chunk");
+                chunk.InnerText = lPointConverter.ConvertToString(currentChunk);
+                barriers.AppendChild(chunk);
+            }
             game.AppendChild(snake);
+            game.AppendChild(barriers);
 
             rootNode.AppendChild(game);
             doc.Save(lName);
@@ -142,6 +150,17 @@ namespace Snake
                                     body.Add(lChunc);
                                 }
                                 rGame.SnakeBody = body;
+                            }
+                            if (childnode.Name == "barriers")
+                            {
+                                List<System.Drawing.Point> barriers = new List<System.Drawing.Point>();
+                                System.Drawing.PointConverter lPointConverter = new System.Drawing.PointConverter();
+                                foreach (XmlNode barrierNode in childnode.ChildNodes)
+                                {
+                                    System.Drawing.Point lChunc = (System.Drawing.Point)lPointConverter.ConvertFromString(barrierNode.InnerText);
+                                    barriers.Add(lChunc);
+                                }
+                                rGame.Barriers = barriers;
                             }
                         }
                     }

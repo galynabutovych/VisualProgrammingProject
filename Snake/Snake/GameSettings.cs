@@ -17,11 +17,12 @@ namespace Snake
         private int columsCount;
         private int score = 0;
         // what is on a field:
-        private Dictionary<Point, int> foodByScore = new Dictionary<Point, int>();
+        //private Dictionary<Point, int> foodByScore = new Dictionary<Point, int>();
         // snake shape, speed and direction:
         private Direction requestedDirection = Direction.Right;
         private Direction snakeDirection = Direction.Right;
-        private List<Point> snakeBody;
+        private List<Point> snakeBody = new List<Point>();
+        private List<Point> barriers = new List<Point>();
         private int speed = 900;
         public GameSettings() { }
         #endregion
@@ -78,6 +79,17 @@ namespace Snake
                 }
             }
             get { return snakeBody; }
+        }
+        public List<Point> Barriers
+        {
+            set
+            {
+                if (value.Count > 0)
+                {
+                    barriers = value;
+                }
+            }
+            get { return barriers; }
         }
         public Direction SnakeDirection
         {
