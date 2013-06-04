@@ -195,6 +195,29 @@ namespace Snake
             Rectangle rectHead = new Rectangle(lefTopHead.X, lefTopHead.Y, squareWidth, squareWidth);
             Bitmap headImage = global::Snake.Resources.snake.head;
             g.DrawImage(headImage, rectHead);
+            switch (snake.direction)
+            {
+                case Direction.Left:
+                    headImage = global::Snake.Resources.snake.left;
+                    g.DrawImage(headImage, rectHead);
+                    break;
+
+                case Direction.Up:
+                    headImage = global::Snake.Resources.snake.up;
+                    g.DrawImage(headImage, rectHead);
+                    break;
+
+                case Direction.Right:
+                    headImage = global::Snake.Resources.snake.head;
+                    g.DrawImage(headImage, rectHead);
+                    break;
+
+                case Direction.Down:
+                    headImage = global::Snake.Resources.snake.down;
+                    g.DrawImage(headImage, rectHead);
+                    break;
+            }
+
 
 
             //tail
@@ -221,7 +244,7 @@ namespace Snake
             {
                 Point lefTop = leftTopRectPosition(currentLink);
                 Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
-                Bitmap foodImage = global::Snake.Resources.snake.food;
+                Bitmap foodImage = global::Snake.Properties.Resources.cookie;
                 switch (bonusByType[currentLink])
                 {
                     case 1:

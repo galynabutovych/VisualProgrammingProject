@@ -171,6 +171,8 @@
     <None Include="Resources\f.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\up.gif" />
+    <None Include="Resources\left.gif" />
     <None Include="Resources\m611.gif" />
     <None Include="Resources\pech.gif" />
     <None Include="Resources\korzinka.gif" />
@@ -183,6 +185,7 @@
     <None Include="Resources\skull.png" />
     <None Include="Resources\cookie.png" />
     <None Include="Resources\background.png" />
+    <None Include="Resources\down.gif" />
     <Content Include="Resources\f.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
