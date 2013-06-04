@@ -407,15 +407,11 @@ namespace Snake
         }
 
         public bool barriersCrash()
-        {
-            //MessageBox.Show(barriers.Count.ToString());
+        {           
             foreach (Point currentLink in barriers)
             {
-                if (snake.headPosition() == currentLink)
+                if (snake.nextHeadPosition() == currentLink)
                 {
-                    //createBarriers();
-                    gameOver();
-                    Invalidate();
                     return true;
                 }
             }
