@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Media;
 
 namespace Snake
 {
@@ -10,6 +11,8 @@ namespace Snake
         #region Variables & Constructors
         GameField gameField = null;
         Settings settings = null;
+        SoundPlayer sp = new SoundPlayer();
+        bool isSoundActive = false;
 
         public Form1()
         {
@@ -26,6 +29,7 @@ namespace Snake
             this.Controls.Add(gameField);
             ClientSize =new Size(gameField.Size.Width, gameField.Size.Height + menuStrip1.Size.Height + statusStrip1.Size.Height);
             gameField.StartGame(GameSettings.Default);
+            sp.Stream = global::Snake.Properties.Resources.melody_zizibum;
         }
         #endregion
 
@@ -107,6 +111,20 @@ namespace Snake
             toolStripMenuItem2.Visible = false;
         }
 
+        void onSettingsChanged()
+        {
+            if (GeneralSettings.Default.Sound)
+            {
+                if (!isSoundActive)
+                    startBackGroundSound();
+            }
+            else
+            {
+                if (isSoundActive)
+                    stopBackgroundSound();
+            }
+        }
+
         #endregion
 
         #region Menu
@@ -183,10 +201,10 @@ namespace Snake
             {
                 settings = new Settings();
                 settings.OnUpdateSpeed += new Settings.SpeedUpdateHandler(speedChanged);
+                settings.Changed += new Settings.SettingsChanged(onSettingsChanged);
                 settings.TopMost = true;
             }
             settings.Show();
-           // resumeFromGameField();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -237,6 +255,23 @@ namespace Snake
             pauseFromGameField();
         }
 
-     
+        private void startBackGroundSound()
+        {
+            isSoundActive = true;
+            sp.PlayLooping();
+        }
+
+        private void stopBackgroundSound()
+        {
+            isSoundActive = false;
+            sp.Stop();
+        }
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if(GeneralSettings.Default.Sound)
+            startBackGroundSound();
+        }
   }
 }

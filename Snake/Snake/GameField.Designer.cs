@@ -35,7 +35,6 @@
             // 
             // timer
             // 
-            setTimerInterval(SpeedDefs.MediumSpeed);
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // timerOfBonus

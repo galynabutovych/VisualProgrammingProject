@@ -130,6 +130,12 @@ namespace Snake.Properties {
             }
         }
         
+        internal static System.IO.UnmanagedMemoryStream melody_zizibum {
+            get {
+                return ResourceManager.GetStream("melody_zizibum", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap pech {
             get {
                 object obj = ResourceManager.GetObject("pech", resourceCulture);

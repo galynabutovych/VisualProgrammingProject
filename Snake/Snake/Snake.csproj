@@ -175,6 +175,7 @@
     <None Include="Resources\f.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\zizibum.wav" />
     <None Include="Resources\up.gif" />
     <None Include="Resources\left.gif" />
     <None Include="Resources\m611.gif" />

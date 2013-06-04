@@ -14,7 +14,8 @@ namespace Snake
         //General settings:
         bool playSound = true;
         int soundVolume = 100;
-
+        public delegate void SettingsChanged();
+        public event SettingsChanged Changed;
         // Per game settings:
         int speedSetting = SpeedDefs.MediumSpeed;
 
@@ -98,6 +99,7 @@ namespace Snake
             OnUpdateSpeed(args);
             Hide();
             saveSettings();
+            Changed();
         }
 
         private void Sound_CheckedChanged(object sender, EventArgs e)
