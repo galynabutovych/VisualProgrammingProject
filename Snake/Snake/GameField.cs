@@ -479,6 +479,7 @@ namespace Snake
             snake = new Snake(rowsCount, columsCount, new LinkedList<Point>(pSettings.SnakeBody));
             snake.direction = pSettings.SnakeDirection;
             setTimerInterval(pSettings.Speed);
+            barriers.Clear();
             if (pSettings.Barriers.Count > 0)
             {
                 barriers = pSettings.Barriers;
