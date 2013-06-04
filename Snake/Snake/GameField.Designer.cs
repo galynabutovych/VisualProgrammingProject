@@ -48,7 +48,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FloralWhite;
-            this.BackgroundImage = global::Snake.Properties.Resources._9317588_grass_background_with_flowers_bees_and_butterfly1;
+            this.BackgroundImage = global::Snake.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Location = new System.Drawing.Point(0, 24);
             this.Name = "GameField";

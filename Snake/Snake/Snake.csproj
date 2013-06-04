@@ -168,12 +168,21 @@
     <None Include="Resources\9317588-grass-background-with-flowers-bees-and-butterfly1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fastfood.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\f.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\m611.gif" />
+    <None Include="Resources\pech.gif" />
+    <None Include="Resources\korzinka.gif" />
+    <None Include="Resources\podarok.gif" />
+    <None Include="Resources\mause.jpg" />
+    <None Include="Resources\image-0000731.jpg" />
+    <None Include="Resources\трава2.jpg" />
+    <None Include="Resources\трава.jpg" />
+    <None Include="Resources\трава1.jpg" />
+    <None Include="Resources\skull.png" />
+    <None Include="Resources\cookie.png" />
+    <None Include="Resources\background.png" />
     <Content Include="Resources\f.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -128,6 +128,8 @@ namespace Snake
         #endregion
 
         #region Painting & Sound
+
+
         private void GameField_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -208,10 +210,8 @@ namespace Snake
             {
                 Point lefTop = leftTopRectPosition(currentLink);
                 Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
-                LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Pink, Color.BlueViolet, LinearGradientMode.BackwardDiagonal);
-                g.FillRectangle(lBrush, rect);
-                //    Bitmap fastfoodImage = global::Snake.Resources.snake.fastfood;
-                //    g.DrawImage(fastfoodImage, rectfastfood);
+                Bitmap cookieImage = global::Snake.Properties.Resources.cookie;
+                g.DrawImage(cookieImage, rect);
             }
         }
 
@@ -221,27 +221,36 @@ namespace Snake
             {
                 Point lefTop = leftTopRectPosition(currentLink);
                 Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
-                LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Black, Color.White, LinearGradientMode.BackwardDiagonal);
+                Bitmap foodImage = global::Snake.Resources.snake.food;
                 switch (bonusByType[currentLink])
                 {
                     case 1:
-                        lBrush = new LinearGradientBrush(rect, Color.Red, Color.Red, LinearGradientMode.BackwardDiagonal);
+                        //lBrush = new LinearGradientBrush(rect, Color.Red, Color.Red, LinearGradientMode.BackwardDiagonal);
+                        foodImage = global::Snake.Properties.Resources.podarok1;
+                        g.DrawImage(foodImage, rect);
                         break;
                     case 2:
-                        lBrush = new LinearGradientBrush(rect, Color.White, Color.White, LinearGradientMode.BackwardDiagonal);
+
+                        foodImage = global::Snake.Properties.Resources.podarok1;
+                        g.DrawImage(foodImage, rect);
                         break;
                     case 3:
-                        lBrush = new LinearGradientBrush(rect, Color.Black, Color.Black, LinearGradientMode.BackwardDiagonal);
+
+                        foodImage = global::Snake.Resources.Resource1.skull;
+                        g.DrawImage(foodImage, rect);
                         break;
                     case 4:
-                        lBrush = new LinearGradientBrush(rect, Color.Blue, Color.Blue, LinearGradientMode.BackwardDiagonal);
+
+                        foodImage = global::Snake.Properties.Resources.m611;
+                        g.DrawImage(foodImage, rect);
                         break;
                 }
 
-                g.FillRectangle(lBrush, rect);
+
                 //    Bitmap fastfoodImage = global::Snake.Resources.snake.fastfood;
                 //    g.DrawImage(fastfoodImage, rectfastfood);
             }
+
         }
 
         void paintBarriers(Graphics g)

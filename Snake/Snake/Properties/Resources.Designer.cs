@@ -74,6 +74,20 @@ namespace Snake.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap background {
+            get {
+                object obj = ResourceManager.GetObject("background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cookie {
+            get {
+                object obj = ResourceManager.GetObject("cookie", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap grass {
             get {
                 object obj = ResourceManager.GetObject("grass", resourceCulture);
@@ -88,9 +102,79 @@ namespace Snake.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap image_0000731 {
+            get {
+                object obj = ResourceManager.GetObject("image_0000731", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap korzinka {
+            get {
+                object obj = ResourceManager.GetObject("korzinka", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap m611 {
+            get {
+                object obj = ResourceManager.GetObject("m611", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap mause {
+            get {
+                object obj = ResourceManager.GetObject("mause", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap pech {
+            get {
+                object obj = ResourceManager.GetObject("pech", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap picture_1506 {
             get {
                 object obj = ResourceManager.GetObject("picture-1506", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap podarok {
+            get {
+                object obj = ResourceManager.GetObject("podarok", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap podarok1 {
+            get {
+                object obj = ResourceManager.GetObject("podarok1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap трава {
+            get {
+                object obj = ResourceManager.GetObject("трава", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap трава1 {
+            get {
+                object obj = ResourceManager.GetObject("трава1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap трава2 {
+            get {
+                object obj = ResourceManager.GetObject("трава2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
