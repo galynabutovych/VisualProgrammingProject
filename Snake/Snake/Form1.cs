@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Media;
+using System.Runtime.InteropServices;
 
 namespace Snake
 {
@@ -13,6 +14,11 @@ namespace Snake
         Settings settings = null;
         SoundPlayer sp = new SoundPlayer();
         bool isSoundActive = false;
+        [DllImport("winmm.dll")]
+        public static extern int waveOutGetVolume(IntPtr hwo, out uint dwVolume);
+
+        [DllImport("winmm.dll")]
+        public static extern int waveOutSetVolume(IntPtr hwo, uint dwVolume);
 
         public Form1()
         {
@@ -113,15 +119,26 @@ namespace Snake
 
         void onSettingsChanged()
         {
+            // Calculate the volume that's being set
+            int NewVolume = ((ushort.MaxValue / 10) * GeneralSettings.Default.Volume);
+            // Set the same volume for both the left and the right channels
+            uint NewVolumeAllChannels = (((uint)NewVolume & 0x0000ffff) | ((uint)NewVolume << 16));
+            // Set the volume
+            waveOutSetVolume(IntPtr.Zero, NewVolumeAllChannels);
+
             if (GeneralSettings.Default.Sound)
             {
                 if (!isSoundActive)
+                {
                     startBackGroundSound();
+                }
             }
             else
             {
                 if (isSoundActive)
+                {
                     stopBackgroundSound();
+                }
             }
         }
 
