@@ -241,6 +241,26 @@ namespace Snake
 
         }
 
+        public Point nextHeadPosition()
+        {
+            Point newHead = headPosition();
+            switch (direction)
+            {
+                case Direction.Left:
+                    newHead.X--;
+                    break;
+                case Direction.Up:
+                    newHead.Y--;
+                    break;
+                case Direction.Right:
+                    newHead.X++;
+                    break;
+                case Direction.Down:
+                    newHead.Y++;
+                    break;
+            }
+            return newHead;
+        }
 
         public bool isSelfCollision()
         {
@@ -248,22 +268,7 @@ namespace Snake
             if (body.Count > 0)
             {
                 collides = true;
-                Point newHead = headPosition();
-                switch (direction)
-                {
-                    case Direction.Left:
-                        newHead.X--;
-                        break;
-                    case Direction.Up:
-                        newHead.Y--;
-                        break;
-                    case Direction.Right:
-                        newHead.X++;
-                        break;
-                    case Direction.Down:
-                        newHead.Y++;
-                        break;
-                }
+                Point newHead = nextHeadPosition();
 
                 foreach (Point point in body)
                 {

@@ -56,6 +56,7 @@ namespace Snake
             snake.growRight();
             snake.growRight();
             snake.growRight();
+            ResizeRedraw = false;
         }
         #endregion
 
@@ -195,6 +196,29 @@ namespace Snake
             Rectangle rectHead = new Rectangle(lefTopHead.X, lefTopHead.Y, squareWidth, squareWidth);
             Bitmap headImage = global::Snake.Resources.snake.head;
             g.DrawImage(headImage, rectHead);
+            switch (snake.direction)
+            {
+                case Direction.Left:
+                    headImage = global::Snake.Resources.snake.left;
+                    g.DrawImage(headImage, rectHead);
+                    break;
+
+                case Direction.Up:
+                    headImage = global::Snake.Resources.snake.up;
+                    g.DrawImage(headImage, rectHead);
+                    break;
+
+                case Direction.Right:
+                    headImage = global::Snake.Resources.snake.head;
+                    g.DrawImage(headImage, rectHead);
+                    break;
+
+                case Direction.Down:
+                    headImage = global::Snake.Resources.snake.down;
+                    g.DrawImage(headImage, rectHead);
+                    break;
+            }
+
 
 
             //tail
@@ -221,7 +245,7 @@ namespace Snake
             {
                 Point lefTop = leftTopRectPosition(currentLink);
                 Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
-                Bitmap foodImage = global::Snake.Resources.snake.food;
+                Bitmap foodImage = global::Snake.Properties.Resources.cookie;
                 switch (bonusByType[currentLink])
                 {
                     case 1:
@@ -327,7 +351,6 @@ namespace Snake
 
             if (bonusByType.Count != 1)
             {
-
                 timerOfBonus.Start();
                 bool accept = false;
                 int bonusX = 0;
@@ -352,7 +375,6 @@ namespace Snake
                             accept = false;
                         }
                     }
-
                 }
 
                 Point BonusPos = new Point(bonusX, bonusY);
@@ -374,26 +396,19 @@ namespace Snake
                     return;
                 }
             }
-            Point lNew = new Point(barrierX, barrierY);
-            barriers.Add(lNew);
-            //Point lNew1 = new Point(barrierX + 1, barrierY);
-            //barriers.Add(lNew1);
-            //Point lNew2 = new Point(barrierX + 2, barrierY);
-            //barriers.Add(lNew2);
-            //Point lNew3 = new Point(barrierX + 3, barrierY);
-            //barriers.Add(lNew3);
+            for (int i = 1; i < 5; i++)
+            {
+                Point lNew = new Point(barrierX + i, barrierY);
+                barriers.Add(lNew);
+            } 
         }
 
         public bool barriersCrash()
-        {
-            //MessageBox.Show(barriers.Count.ToString());
+        {           
             foreach (Point currentLink in barriers)
             {
-                if (snake.headPosition() == currentLink)
+                if (snake.nextHeadPosition() == currentLink)
                 {
-                    //createBarriers();
-                    gameOver();
-                    Invalidate();
                     return true;
                 }
             }
@@ -467,6 +482,19 @@ namespace Snake
                 Invalidate();
                 return;
             }
+            if (snake.collidesWithWall())
+            {
+                gameOver();
+                Invalidate();
+                return;
+            }
+            if (barriersCrash())
+            {
+
+                gameOver();
+                Invalidate();
+                return;
+            }
             if (!eat() && !eatBonus())
                 switch (snake.direction)
                 {
@@ -483,22 +511,6 @@ namespace Snake
                         snake.moveDown();
                         break;
                 }
-            if (snake.collidesWithWall())
-            {
-                gameOver();
-                Invalidate();
-                return;
-            }
-            if (barriersCrash())
-            {
-
-                gameOver();
-                Invalidate();
-                return;
-            }
-
-            //if ((Score % 16) == 0 && Score != 0) 
-            //    createBonus();
             Invalidate();
         }
 
@@ -516,6 +528,20 @@ namespace Snake
         public void setTimerInterval(int msec)
         {
             timer.Interval = msec;
+            switch (timer.Interval)
+            {
+                case SpeedDefs.LowSpeed:
+                    timerOfBonus.Interval = 30000;
+                    break;
+
+                case SpeedDefs.MediumSpeed:
+                    timerOfBonus.Interval = 19500;
+                    break;
+
+                case SpeedDefs.HighSpeed:
+                    timerOfBonus.Interval = 12000;
+                    break;
+            }
         }
 
         private void loadSettings(GameSettings pSettings)
@@ -536,6 +562,7 @@ namespace Snake
                 createBarriers();
             }
             Score = pSettings.Score;
+            addScore(0);
         }
 
         public GameSettings getSettings()
@@ -571,8 +598,11 @@ namespace Snake
         /// </summary>
         public void resume()
         {
-            timer.Start();
-            Invalidate();
+            if (!isGameOver)
+            {
+                timer.Start();
+                Invalidate();
+            }
         }
 
         public bool isRunning()

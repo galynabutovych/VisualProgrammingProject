@@ -90,6 +90,7 @@
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="Snake.cs" />
+    <Compile Include="SpeedDefs.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="StorageManager.cs" />
     <Compile Include="XmlStorage.cs" />
@@ -99,9 +100,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GameField.resx">
       <DependentUpon>GameField.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -129,6 +132,7 @@
     <None Include="GeneralSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>GeneralSettings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -171,6 +175,8 @@
     <None Include="Resources\f.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\up.gif" />
+    <None Include="Resources\left.gif" />
     <None Include="Resources\m611.gif" />
     <None Include="Resources\pech.gif" />
     <None Include="Resources\korzinka.gif" />
@@ -183,6 +189,7 @@
     <None Include="Resources\skull.png" />
     <None Include="Resources\cookie.png" />
     <None Include="Resources\background.png" />
+    <None Include="Resources\down.gif" />
     <Content Include="Resources\f.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -23,7 +23,7 @@ namespace Snake
         private Direction snakeDirection = Direction.Right;
         private List<Point> snakeBody = new List<Point>();
         private List<Point> barriers = new List<Point>();
-        private int speed = 900;
+        private int speed = SpeedDefs.LowSpeed;
         public GameSettings() { }
         #endregion
 
@@ -126,8 +126,8 @@ namespace Snake
                 defaultSettings.Score = 0;
                 defaultSettings.SnakeDirection = Direction.Right;
                 defaultSettings.RequestedDirection = Direction.Right;
-                defaultSettings.RowsCount = 20;
-                defaultSettings.ColumsCount = 20;
+                defaultSettings.RowsCount = 22;
+                defaultSettings.ColumsCount = 40;
                 List<Point>  body = new List<Point>();
                 body.Add(new Point(3, 0));
                 body.Add(new Point(2, 0));
