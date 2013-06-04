@@ -16,7 +16,7 @@ namespace Snake
         int soundVolume = 100;
 
         // Per game settings:
-        int speedSetting = 400;
+        int speedSetting = SpeedDefs.MediumSpeed;
 
         public delegate void SpeedUpdateHandler(SpeedEventArgs e);
         public event SpeedUpdateHandler OnUpdateSpeed;
@@ -46,7 +46,7 @@ namespace Snake
 
         private void Low_Click(object sender, EventArgs e)
         {
-            speedSetting = 900;
+            speedSetting = SpeedDefs.LowSpeed;
             //SpeedEventArgs args = new SpeedEventArgs(900);
             //OnUpdateSpeed(args);
             
@@ -54,7 +54,7 @@ namespace Snake
 
         private void High_Click(object sender, EventArgs e)
         {
-            speedSetting = 200;
+            speedSetting = SpeedDefs.HighSpeed;
             //SpeedEventArgs args = new SpeedEventArgs(200);
             //OnUpdateSpeed(args);
            
@@ -62,7 +62,7 @@ namespace Snake
 
         private void Medium_Click(object sender, EventArgs e)
         {
-            speedSetting = 400;
+            speedSetting = SpeedDefs.MediumSpeed;
             // TODO: emit this event only after user presses OK button
             //SpeedEventArgs args = new SpeedEventArgs(400);
             //OnUpdateSpeed(args);

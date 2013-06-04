@@ -14,12 +14,13 @@ namespace Snake
         public Form1()
         {
             InitializeComponent();
-            gameField = new GameField(20, 20, 20);
-            gameField.Width = 20 * 20;
-            gameField.Height = 20 * 20;
+            gameField = new GameField(22, 40, 25);
+            gameField.Width = 40 * 25;
+            gameField.Height = 22 * 25;
             gameField.OnUpdateScore +=new GameField.ScoreUpdateHandler(onScoreChanged);
             this.DoubleBuffered = true;
             this.KeyPreview = true;
+            ResizeRedraw = false;
             
             this.Controls.Add(gameField);
             ClientSize =new Size(gameField.Size.Width, gameField.Size.Height + menuStrip1.Size.Height + statusStrip1.Size.Height);    

@@ -35,12 +35,11 @@
             // 
             // timer
             // 
-            this.timer.Interval = 500;
+            setTimerInterval(SpeedDefs.MediumSpeed);
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // timerOfBonus
             // 
-            this.timerOfBonus.Interval = 3000;
             this.timerOfBonus.Tick += new System.EventHandler(this.timerOfBonus_Tick_1);
             // 
             // GameField

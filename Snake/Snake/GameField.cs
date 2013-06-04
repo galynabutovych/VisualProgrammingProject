@@ -56,6 +56,7 @@ namespace Snake
             snake.growRight();
             snake.growRight();
             snake.growRight();
+            ResizeRedraw = false;
         }
         #endregion
 
@@ -350,7 +351,6 @@ namespace Snake
 
             if (bonusByType.Count != 1)
             {
-
                 timerOfBonus.Start();
                 bool accept = false;
                 int bonusX = 0;
@@ -375,7 +375,6 @@ namespace Snake
                             accept = false;
                         }
                     }
-
                 }
 
                 Point BonusPos = new Point(bonusX, bonusY);
@@ -539,6 +538,20 @@ namespace Snake
         public void setTimerInterval(int msec)
         {
             timer.Interval = msec;
+            switch (timer.Interval)
+            {
+                case SpeedDefs.LowSpeed:
+                    timerOfBonus.Interval = 30000;
+                    break;
+
+                case SpeedDefs.MediumSpeed:
+                    timerOfBonus.Interval = 19500;
+                    break;
+
+                case SpeedDefs.HighSpeed:
+                    timerOfBonus.Interval = 12000;
+                    break;
+            }
         }
 
         private void loadSettings(GameSettings pSettings)
@@ -559,6 +572,7 @@ namespace Snake
                 createBarriers();
             }
             Score = pSettings.Score;
+            addScore(0);
         }
 
         public GameSettings getSettings()
@@ -594,8 +608,11 @@ namespace Snake
         /// </summary>
         public void resume()
         {
-            timer.Start();
-            Invalidate();
+            if (!isGameOver)
+            {
+                timer.Start();
+                Invalidate();
+            }
         }
 
         public bool isRunning()
