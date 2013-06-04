@@ -396,14 +396,11 @@ namespace Snake
                     return;
                 }
             }
-            Point lNew = new Point(barrierX, barrierY);
-            barriers.Add(lNew);
-            //Point lNew1 = new Point(barrierX + 1, barrierY);
-            //barriers.Add(lNew1);
-            //Point lNew2 = new Point(barrierX + 2, barrierY);
-            //barriers.Add(lNew2);
-            //Point lNew3 = new Point(barrierX + 3, barrierY);
-            //barriers.Add(lNew3);
+            for (int i = 1; i < 5; i++)
+            {
+                Point lNew = new Point(barrierX + i, barrierY);
+                barriers.Add(lNew);
+            } 
         }
 
         public bool barriersCrash()
