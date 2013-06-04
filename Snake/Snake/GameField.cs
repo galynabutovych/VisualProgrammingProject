@@ -471,15 +471,23 @@ namespace Snake
             timer.Interval = msec;
         }
 
-        private void loadSettings(GameSettings lSettings)
+        private void loadSettings(GameSettings pSettings)
         {
-            rowsCount = lSettings.RowsCount;
-            columsCount = lSettings.ColumsCount;
-            requestedDirection = lSettings.RequestedDirection;
-            snake = new Snake(rowsCount, columsCount, new LinkedList<Point>(lSettings.SnakeBody));
-            snake.direction = lSettings.SnakeDirection;
-            setTimerInterval(lSettings.Speed);
-            Score = lSettings.Score;
+            rowsCount = pSettings.RowsCount;
+            columsCount = pSettings.ColumsCount;
+            requestedDirection = pSettings.RequestedDirection;
+            snake = new Snake(rowsCount, columsCount, new LinkedList<Point>(pSettings.SnakeBody));
+            snake.direction = pSettings.SnakeDirection;
+            setTimerInterval(pSettings.Speed);
+            if (pSettings.Barriers.Count > 0)
+            {
+                barriers = pSettings.Barriers;
+            }
+            else
+            {
+                createBarriers();
+            }
+            Score = pSettings.Score;
         }
 
         public GameSettings getSettings()
@@ -492,6 +500,7 @@ namespace Snake
             rSettings.SnakeDirection = snake.direction;
             rSettings.RequestedDirection = requestedDirection;
             rSettings.SnakeBody = snake.getBody();
+            rSettings.Barriers = barriers;
             return rSettings;
         }
 
