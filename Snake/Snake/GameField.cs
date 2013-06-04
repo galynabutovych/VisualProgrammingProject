@@ -31,9 +31,11 @@ namespace Snake
         Dictionary<Point, int> bonusByType = new Dictionary<Point, int>();
         List<Point> barriers = new List<Point>();
         int Score = 0;
-        bool isGameOver = false;
-        public delegate void ScoreUpdateHandler(ScoreEventArgs e);
+        bool IsGameOver = false;
+        public delegate void ScoreUpdateHandler(GameEventArgs e);
         public event ScoreUpdateHandler OnUpdateScore;
+        public delegate void GameOver();
+        public event GameOver EndOfGame;
         public Direction requestedDirection = Direction.Right;
         ResourceManager resourceManager = new ResourceManager
                ("snake", typeof(GameField).Assembly);
@@ -104,9 +106,9 @@ namespace Snake
         }
         private void GameField_Load(object sender, EventArgs e)
         {
-            timer.Start();
-            createFood();
-            createBarriers();
+            //timer.Start();
+            //createFood();
+            //createBarriers();
 
         }
         protected override bool IsInputKey(Keys keyData)
@@ -138,7 +140,7 @@ namespace Snake
             paintBonus(g);
             paintBarriers(g);
             paintSnake(g);
-            if (isGameOver)
+            if (IsGameOver)
             {
                 paintGameOver(g);
             }
@@ -195,7 +197,6 @@ namespace Snake
             Point lefTopHead = leftTopRectPosition(snake.headPosition());
             Rectangle rectHead = new Rectangle(lefTopHead.X, lefTopHead.Y, squareWidth, squareWidth);
             Bitmap headImage = global::Snake.Resources.snake.head;
-            g.DrawImage(headImage, rectHead);
             switch (snake.direction)
             {
                 case Direction.Left:
@@ -309,9 +310,11 @@ namespace Snake
         #region Methods
         public void StartGame(GameSettings pGameSettings)
         {
-            isGameOver = false;
+            foodByScore.Clear();
+            IsGameOver = false;
             loadSettings(pGameSettings);
             timer.Start();
+            createFood();
             Invalidate();
         }
 
@@ -468,7 +471,7 @@ namespace Snake
         private void addScore(int pScore)
         {
             Score += pScore;
-            ScoreEventArgs args = new ScoreEventArgs(Score);
+            GameEventArgs args = new GameEventArgs(Score);
             OnUpdateScore(args);
             if ((Score % 16) == 0 && Score != 0)
                 createBonus();
@@ -516,9 +519,10 @@ namespace Snake
 
         void gameOver()
         {
-            isGameOver = true;
+            IsGameOver = true;
             timer.Stop();
             Invalidate();
+            EndOfGame();
         }
 
         /// <summary>
@@ -598,7 +602,7 @@ namespace Snake
         /// </summary>
         public void resume()
         {
-            if (!isGameOver)
+            if (!IsGameOver)
             {
                 timer.Start();
                 Invalidate();
@@ -608,6 +612,11 @@ namespace Snake
         public bool isRunning()
         {
             return timer.Enabled;
+        }
+
+        public bool isGameOver()
+        {
+            return IsGameOver;
         }
 
         #endregion
@@ -622,11 +631,11 @@ namespace Snake
     }
 
     /***********************************************************************************************************************************************/
-    public class ScoreEventArgs : EventArgs
+    public class GameEventArgs : EventArgs
     {
         public int Score { get; private set; }
 
-        public ScoreEventArgs(int score)
+        public GameEventArgs(int score)
         {
             if (score > 0)
                 Score = score;

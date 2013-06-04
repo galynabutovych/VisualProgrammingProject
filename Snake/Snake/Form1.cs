@@ -18,18 +18,22 @@ namespace Snake
             gameField.Width = 40 * 25;
             gameField.Height = 22 * 25;
             gameField.OnUpdateScore +=new GameField.ScoreUpdateHandler(onScoreChanged);
+            gameField.EndOfGame += new GameField.GameOver(onGameOver);
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             ResizeRedraw = false;
             
             this.Controls.Add(gameField);
-            ClientSize =new Size(gameField.Size.Width, gameField.Size.Height + menuStrip1.Size.Height + statusStrip1.Size.Height);    
+            ClientSize =new Size(gameField.Size.Width, gameField.Size.Height + menuStrip1.Size.Height + statusStrip1.Size.Height);
+            gameField.StartGame(GameSettings.Default);
         }
         #endregion
 
         #region Methods
         public void pauseFromGameField()     // call pause from gamefield
         {
+            if (gameField.isGameOver())
+                return;
             gameField.pause();
             toolStripMenuItem2.Visible = true;
             pauseToolStripMenuItem.Visible = false;
@@ -37,6 +41,8 @@ namespace Snake
 
         public void resumeFromGameField()   //call resume from gamefield
         {
+            if (gameField.isGameOver())
+                return;
                 gameField.resume();
                 toolStripMenuItem2.Visible = false;
                 pauseToolStripMenuItem.Visible = true;
@@ -56,13 +62,15 @@ namespace Snake
 
                     if (result == DialogResult.Yes)
                     {
-
-                        DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
-                        if (resultsave == DialogResult.Yes)
+                        if (!gameField.isGameOver())
                         {
-                            // save game
+                            DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
+                            if (resultsave == DialogResult.Yes)
+                            {
+                                saveRequested();
+                            }
                         }
-                        else Close();
+                        Close();
                     }
                     break;
 
@@ -87,9 +95,16 @@ namespace Snake
             }
         }
 
-        void onScoreChanged(ScoreEventArgs e)
+        void onScoreChanged(GameEventArgs e)
         {
             this.ScoreCounterLabel.Text = e.Score.ToString();
+        }
+
+        void onGameOver()
+        {
+            saveToolStripMenuItem.Enabled = false;
+            pauseToolStripMenuItem.Visible = false;
+            toolStripMenuItem2.Visible = false;
         }
 
         #endregion
@@ -115,17 +130,27 @@ namespace Snake
         private void newGameToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             pauseFromGameField();
-            DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNoCancel);
-            if (resultsave == DialogResult.Yes)
+            DialogResult resultsaveNG = MessageBox.Show("Do you want to start new game?", "New Game", MessageBoxButtons.YesNo);
+            if (resultsaveNG == DialogResult.Yes)
             {
-                // save game
-                gameField.StartGame(GameSettings.Default); //new game;
-            }
-            else if (resultsave == DialogResult.No)
-            {
-                resumeFromGameField();
-                gameField.StartGame(GameSettings.Default); //new game;
-            }
+                if (!gameField.isGameOver())
+                {
+                    DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
+                    if (resultsave == DialogResult.Yes)
+                    {
+                        saveRequested();
+                        //gameField.StartGame(GameSettings.Default); //new game;
+                    }
+                    //else if (resultsave == DialogResult.No)
+                    //{
+                    //    resumeFromGameField();
+                    //    //gameField.StartGame(GameSettings.Default); //new game;
+                    //}
+                }
+                gameField.StartGame(GameSettings.Default);
+                saveToolStripMenuItem.Enabled = true;
+                pauseToolStripMenuItem.Visible = true;
+            }          
 
         }
 
@@ -139,13 +164,15 @@ namespace Snake
 
             if (result == DialogResult.Yes)
             {
-
-                DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
-                if (resultsave == DialogResult.Yes)
+                if (!gameField.isGameOver())
                 {
-                    // save game
+                    DialogResult resultsave = MessageBox.Show("Do you want to save the game?", "Save", MessageBoxButtons.YesNo);
+                    if (resultsave == DialogResult.Yes)
+                    {
+                        saveRequested();
+                    }
                 }
-                else Close();
+                Close();
             }
         }
 
@@ -164,12 +191,20 @@ namespace Snake
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog lSaveDialog = new SaveFileDialog();
-            lSaveDialog.Title = "Save game";
-            lSaveDialog.OverwritePrompt = true;
-            if (lSaveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            saveRequested();
+        }
+
+        void saveRequested()
+        {
+            if (!gameField.isGameOver())
             {
-                StorageManager.storageInstance.storeGame(gameField.getSettings(), lSaveDialog.FileName);
+                SaveFileDialog lSaveDialog = new SaveFileDialog();
+                lSaveDialog.Title = "Save game";
+                lSaveDialog.OverwritePrompt = true;
+                if (lSaveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    StorageManager.storageInstance.storeGame(gameField.getSettings(), lSaveDialog.FileName);
+                }
             }
         }
 
