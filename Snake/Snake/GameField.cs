@@ -388,8 +388,8 @@ namespace Snake
 
         void createBarriers()
         {
-            int barrierX = random.Next(1, columsCount-1);
-            int barrierY = random.Next(1, rowsCount-1);
+            int barrierX = random.Next(2, 6);
+            int barrierY = random.Next(2, 6);
             List<Point> snakeBody = snake.getBody();
             foreach (Point currentLink in snakeBody)
             {
@@ -399,11 +399,38 @@ namespace Snake
                     return;
                 }
             }
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i < 6; i++)
             {
-                Point lNew = new Point(barrierX + i, barrierY);
-                barriers.Add(lNew);
-            } 
+                if (barrierX + i < columsCount - 1)
+                {
+                    Point lNew = new Point(barrierX + i, barrierY);
+                    barriers.Add(lNew);
+                }
+            }
+            for (int i = 16; i < 22; i++)
+            {
+                if (barrierX + i < columsCount - 1)
+                {
+                    Point lNew = new Point(barrierX + i, barrierY + 13);
+                    barriers.Add(lNew);
+                }
+            }
+            for (int j = 10; j < 13; j++)
+            {
+                if (barrierY + j < rowsCount - 1)
+                {
+                    Point lNew = new Point(barrierX + 2, barrierY + j);
+                    barriers.Add(lNew);
+                }
+            }
+            for (int j = 4; j < 10; j++)
+            {
+                if (barrierY + j < rowsCount - 1)
+                {
+                    Point lNew = new Point(barrierX + 30, barrierY + j);
+                    barriers.Add(lNew);
+                }
+            }
         }
 
         public bool barriersCrash()
