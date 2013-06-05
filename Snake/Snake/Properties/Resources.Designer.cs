@@ -116,6 +116,13 @@ namespace Snake.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ks_t_m {
+            get {
+                object obj = ResourceManager.GetObject("ks_t_m", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap m611 {
             get {
                 object obj = ResourceManager.GetObject("m611", resourceCulture);
@@ -160,6 +167,13 @@ namespace Snake.Properties {
         internal static System.Drawing.Bitmap podarok1 {
             get {
                 object obj = ResourceManager.GetObject("podarok1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap stone {
+            get {
+                object obj = ResourceManager.GetObject("stone", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

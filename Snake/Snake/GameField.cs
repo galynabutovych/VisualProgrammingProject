@@ -256,7 +256,7 @@ namespace Snake
                         break;
                     case 2:
 
-                        foodImage = global::Snake.Properties.Resources.podarok1;
+                        foodImage = global::Snake.Properties.Resources.korzinka;
                         g.DrawImage(foodImage, rect);
                         break;
                     case 3:
@@ -284,8 +284,8 @@ namespace Snake
             {
                 Point lefTop = leftTopRectPosition(currentLink);
                 Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
-                LinearGradientBrush lBrush = new LinearGradientBrush(rect, Color.Black, Color.Red, LinearGradientMode.BackwardDiagonal);
-                g.FillRectangle(lBrush, rect);
+                Bitmap cookieImage = global::Snake.Resources.Resource1.stock;
+                g.DrawImage(cookieImage, rect);
             }
         }
 

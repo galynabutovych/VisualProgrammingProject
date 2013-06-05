@@ -184,6 +184,10 @@
     <None Include="Resources\f.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\stock.jpg" />
+    <None Include="Resources\ks_t_m.gif" />
+    <None Include="Resources\ks_t_m.jpg" />
+    <None Include="Resources\stone.gif" />
     <None Include="Resources\zizibum.wav" />
     <None Include="Resources\up.gif" />
     <None Include="Resources\left.gif" />
