@@ -37,6 +37,12 @@ namespace Snake
             gameField.StartGame(GameSettings.Default);
             sp.Stream = global::Snake.Properties.Resources.melody_zizibum;
         }
+
+        ~Form1()
+        {
+            if(gameField != null)
+            updateScores();
+        }
         #endregion
 
         #region Methods
@@ -108,6 +114,7 @@ namespace Snake
         void onScoreChanged(GameEventArgs e)
         {
             this.ScoreCounterLabel.Text = e.Score.ToString();
+            updateScores();
         }
 
         void onGameOver()
@@ -115,6 +122,7 @@ namespace Snake
             saveToolStripMenuItem.Enabled = false;
             pauseToolStripMenuItem.Visible = false;
             toolStripMenuItem2.Visible = false;
+            updateScores();
         }
 
         void onSettingsChanged()
@@ -207,8 +215,9 @@ namespace Snake
                         saveRequested();
                     }
                 }
+                updateScores();
                 Close();
-            }
+            }            
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -289,6 +298,24 @@ namespace Snake
         {
             if(GeneralSettings.Default.Sound)
             startBackGroundSound();
+        }
+
+        void updateScores()
+        {
+            GeneralSettings.Default.LastScore = gameField.score();
+            if (GeneralSettings.Default.HighScore < gameField.score())
+            {
+                GeneralSettings.Default.HighScore = gameField.score();
+            }
+        }
+
+        private void highScoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pauseFromGameField();
+            HighScoresForm lHighScoreForm = new HighScoresForm();
+            lHighScoreForm.setLastScore(GeneralSettings.Default.LastScore);
+            lHighScoreForm.setHighScore(GeneralSettings.Default.HighScore);
+            lHighScoreForm.Show();
         }
   }
 }
