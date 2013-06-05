@@ -27,5 +27,10 @@ namespace Snake
         {
             textBoxHigh.Text = score.ToString();
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
