@@ -54,11 +54,9 @@ namespace Snake
             squareWidth = cellWidth;
 
             snake = new Snake(rowsCount, columsCount, 0, 0);
-            // REMOVEME:
-            snake.growRight();
-            snake.growRight();
-            snake.growRight();
+            
             ResizeRedraw = false;
+            timerOfBonus.Interval = 30000;
         }
         #endregion
 
@@ -109,6 +107,7 @@ namespace Snake
             //timer.Start();
             //createFood();
             //createBarriers();
+            StartGame(GameSettings.Default);
 
         }
         protected override bool IsInputKey(Keys keyData)

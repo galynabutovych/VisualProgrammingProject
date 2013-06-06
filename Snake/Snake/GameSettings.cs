@@ -122,7 +122,7 @@ namespace Snake
             {
                 GameSettings defaultSettings = new GameSettings();
                 defaultSettings.User = "";
-                defaultSettings.Speed = 500;
+                defaultSettings.Speed = SpeedDefs.MediumSpeed;
                 defaultSettings.Score = 0;
                 defaultSettings.SnakeDirection = Direction.Right;
                 defaultSettings.RequestedDirection = Direction.Right;
