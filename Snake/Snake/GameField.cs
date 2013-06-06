@@ -181,13 +181,14 @@ namespace Snake
         {
             List<Point> snakeBody = snake.getBody();
             // body
+            Bitmap bodyBody = global::Snake.Resources.snake.body;
             foreach (Point currentLink in snakeBody)
             {
                 if (currentLink != snake.headPosition() && currentLink != snake.tailPosition())
                 {
                     Point lefTop = leftTopRectPosition(currentLink);
                     Rectangle rect = new Rectangle(lefTop.X, lefTop.Y, squareWidth, squareWidth);
-                    Bitmap bodyBody = global::Snake.Resources.snake.body;
+                    
                     g.DrawImage(bodyBody, rect);
                 }
             }
